@@ -13,7 +13,7 @@ export const formFields = [
 		placeholder: '01xxxxxxxxxx',
 		isRequired: true,
 		errorMsg: 'Number is required',
-		fieldKey: 'contact', // This key must match a key in formData
+		fieldKey: 'phone', // This key must match a key in formData
 	},
 	{
 		label: 'Age',

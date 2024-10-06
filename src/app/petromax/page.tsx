@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import {
 	CheckboxField,
@@ -9,18 +10,23 @@ import {
 } from '@/components';
 import { useAppDispatch } from '@/components/library/useReduxHooks';
 import { formFields, genderField } from '@/lib/data';
-import { useGetotpMutation } from '@/store/services/getOtp';
+import {
+	useGetotpMutation,
+	useSubmitFormMutation,
+} from '@/store/services/getOtp';
 import { login } from '@/store/slices/authSlice';
 import { Box, Flex } from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const Home = () => {
 	const [trigger, result] = useGetotpMutation();
-	const dispatch = useAppDispatch();
+	const [submitFormTrigger, formResult] = useSubmitFormMutation();
+	// const dispatch = useAppDispatch();
 
 	const [formData, setFormData] = useState({
 		name: '',
-		contact: '',
+		phone: '',
 		gender: '',
 		age: null,
 		brand: '',
@@ -51,16 +57,26 @@ const Home = () => {
 	// Get Code Button Logic
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		setCodeField(true);
+		trigger({ brand: 'petromax', phone: formData?.phone });
+		// console.log('logged:', { brand: formData.brand, phone: formData.contact });
 	};
-	// api result
-	const { isSuccess, isError, isLoading, error } = result;
+	// form all data
+	const handleSubmitAllData = () => {
+		submitFormTrigger({ ...formData, phone: formData.phone });
+	};
+	const router = useRouter();
+	useEffect(() => {
+		if (formResult?.isSuccess && !formResult?.isLoading) {
+			router.push('/success');
+		}
+	}, [formResult?.isSuccess]);
+
 	// is register is successful
 	useEffect(() => {
-		if (result.isSuccess) {
-			dispatch(login(result.data));
+		if (result?.isSuccess && !result?.isLoading) {
+			setCodeField(true);
 		}
-	}, [dispatch, result.isSuccess, result.data]);
+	}, [result?.isSuccess]);
 
 	return (
 		<Box py='80px' w='full' h='full'>
@@ -102,7 +118,9 @@ const Home = () => {
 
 					{!codeField && (
 						<Flex justifyContent='flex-end' mb='12px' w='full'>
-							<FormButton>Get OTP</FormButton>
+							<FormButton type='submit' isLoading={result?.isLoading}>
+								Get OTP
+							</FormButton>
 						</Flex>
 					)}
 
@@ -124,7 +142,12 @@ const Home = () => {
 
 					{codeField && (
 						<Flex justifyContent='flex-end' w='full'>
-							<FormButton disabled={formData?.otp == ''}>Submit</FormButton>
+							<FormButton
+								onClick={handleSubmitAllData}
+								disabled={formData?.otp == ''}
+							>
+								Submit
+							</FormButton>
 						</Flex>
 					)}
 				</FormContainer>

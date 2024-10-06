@@ -12,7 +12,15 @@ export const otpApi = mainApi.injectEndpoints({
 			}),
 			invalidatesTags: ['getotp'],
 		}),
+		submitForm: builder.mutation({
+			query: body => ({
+				url: `/brand/${body?.brand?.toLowerCase()}`,
+				method: 'POST',
+				body: body,
+			}),
+			invalidatesTags: ['submitForm'],
+		}),
 	}),
 });
-export const { useGetotpMutation } = otpApi;
+export const { useGetotpMutation, useSubmitFormMutation } = otpApi;
 export default otpApi;
