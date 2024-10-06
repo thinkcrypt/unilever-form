@@ -1,16 +1,11 @@
-import {
-	FormControl,
-	FormControlProps,
-	FormLabel,
-	Input,
-} from '@chakra-ui/react';
-import { FC } from 'react';
+import { FormControl, FormLabel, Input } from '@chakra-ui/react';
+import React, { FC } from 'react';
 
-type TextInputProps = FormControlProps & {
+type OtpFieldProps = {
 	label?: string;
 	type: string;
 	errorMsg?: string;
-	value:any;
+	value: any;
 	placeholder?: string;
 	handleChange: (key: string, value: string) => void;
 	isRequired?: boolean;
@@ -18,7 +13,7 @@ type TextInputProps = FormControlProps & {
 	fieldKey: string;
 };
 
-const TextInput: FC<TextInputProps> = ({
+const OtpField: FC<OtpFieldProps> = ({
 	label,
 	type,
 	value,
@@ -28,9 +23,6 @@ const TextInput: FC<TextInputProps> = ({
 	fieldKey,
 	...props
 }) => {
-	// Check for errors if the field is required and if the form was submitted
-	// const isError = isRequired && submitted && value === '';
-
 	return (
 		<FormControl
 			w='full'
@@ -55,7 +47,6 @@ const TextInput: FC<TextInputProps> = ({
 				placeholder={placeholder}
 				onChange={e => handleChange(fieldKey, e.target.value)}
 				fontFamily='inter'
-				variant='flushed'
 				_placeholder={{ fontSize: '.85rem' }}
 			/>
 			{/* {isError && <FormErrorMessage>{errorMsg}</FormErrorMessage>} */}
@@ -63,4 +54,4 @@ const TextInput: FC<TextInputProps> = ({
 	);
 };
 
-export default TextInput;
+export default OtpField;

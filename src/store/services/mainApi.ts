@@ -2,11 +2,11 @@
 import { URL } from '@/lib/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const tags = ['user'];
+const tags = ['self', 'getotp'];
 export const mainApi = createApi({
 	reducerPath: 'mainApi',
 	baseQuery: fetchBaseQuery({
-		baseUrl: `${URL.api}/api`,
+		baseUrl: `http://localhost:5000/api`,
 		prepareHeaders: (headers, { getState }) => {
 			const token: string = (getState() as any).auth?.token;
 			if (token) {
@@ -20,4 +20,3 @@ export const mainApi = createApi({
 
 export const {} = mainApi;
 export default mainApi;
-

@@ -27,7 +27,7 @@ const RadioInput: FC<RadioInputProps> = ({
 }) => {
 	const isError = isRequired && submitted && value === '';
 	return (
-		<CustomFormControl isError={isError}>
+		<CustomFormControl isRequired={true}>
 			<FormLabel>{label}</FormLabel>
 			<RadioGroup
 				value={value}

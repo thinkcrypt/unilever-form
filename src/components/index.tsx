@@ -4,4 +4,7 @@ export { default as RadioInput } from './form/RadioInput';
 export { default as TextInput } from './form/TextInput';
 export { default as CustomFormControl } from './form/CustomFormControl';
 export { default as CheckboxField } from './form/CheckboxField';
+export { default as FormLogo } from './form/FormLogo';
+export { default as OtpField } from './form/OtpField';
+export { default as Timer } from './form/Timer';
 export * from './utils/index';

@@ -3,22 +3,24 @@ import React, { FC, ReactNode } from 'react';
 
 type CustomFormControlProps = FormControlProps & {
 	children: ReactNode;
-	isError?: boolean;
+	isRequired?: boolean;
 };
 
 const CustomFormControl: FC<CustomFormControlProps> = ({
 	children,
-	isError,
+	isRequired,
 	...props
 }) => {
 	return (
 		<FormControl
+			w='full'
+			h='auto'
 			p='24px'
 			mb='12px'
 			borderRadius='8px'
 			fontFamily='inter'
 			border='1px solid #ddd'
-			isInvalid={isError}
+			isRequired={isRequired}
 			{...props}
 		>
 			{children}

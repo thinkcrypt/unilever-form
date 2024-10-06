@@ -24,12 +24,12 @@ export const formFields = [
 		fieldKey: 'age', // This key must match a key in formData
 	},
 	{
-		label: 'Area',
+		label: 'Parlor Code',
 		type: 'text',
 		placeholder: 'Your Answer',
 		isRequired: true,
 		errorMsg: 'Area is required',
-		fieldKey: 'area', // This key must match a key in formData
+		fieldKey: 'parlorCode', // This key must match a key in formData
 	},
 ];
 

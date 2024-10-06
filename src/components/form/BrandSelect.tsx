@@ -21,7 +21,7 @@ const BrandSelect: FC<BrandSelectProps> = ({
 }) => {
 	const isError = isRequired && submitted && value === '';
 	return (
-		<CustomFormControl isError={isError}>
+		<CustomFormControl isRequired={true}>
 			<FormLabel>{label}</FormLabel>
 			<Select
 				placeholder='Select brand'
