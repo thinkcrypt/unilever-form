@@ -1,6 +1,7 @@
 'use client';
 import {
 	BrandSelect,
+	CheckboxField,
 	FormContainer,
 	HeadingText,
 	RadioInput,
@@ -19,7 +20,10 @@ const Home = () => {
 		age: null,
 		area: '',
 		currentUsingBrand: '',
+		checkbox: false,
 	});
+
+	console.log('FormData', formData);
 
 	// For show and hide code number input field
 	const [codeField, setCodeField] = useState<boolean>(false);
@@ -37,7 +41,10 @@ const Home = () => {
 	};
 
 	// Handle Input Change Event
-	const handleInputChange = (key: keyof typeof formData, value: string) => {
+	const handleInputChange = (
+		key: keyof typeof formData,
+		value: string | boolean
+	) => {
 		setFormData(prev => ({
 			...prev,
 			[key]: value,
@@ -53,7 +60,8 @@ const Home = () => {
 			!formData.contact ||
 			!formData.gender ||
 			!formData.area ||
-			!formData.currentUsingBrand
+			!formData.currentUsingBrand ||
+			!formData.checkbox
 		) {
 			return;
 		}
@@ -76,12 +84,12 @@ const Home = () => {
 			age: null,
 			area: '',
 			currentUsingBrand: '',
+			checkbox: false,
 		});
 	};
 
 	return (
 		<Box py='80px' w='full' h='full'>
-			<HeadingText textAlign='center'>Unilever</HeadingText>
 			<FormContainer>
 				{formFields?.map((field, i) => (
 					<TextInput
@@ -97,6 +105,7 @@ const Home = () => {
 						isRequired={field.isRequired}
 						submitted={submitted}
 						fieldKey={field.fieldKey}
+						borderTop={i === 0 ? '8px solid #A78C61' : undefined}
 					/>
 				))}
 
@@ -120,6 +129,13 @@ const Home = () => {
 					handleChange={(key, value) =>
 						handleInputChange('currentUsingBrand', value)
 					}
+				/>
+
+				{/* Checkbox Field */}
+				<CheckboxField
+					handleChange={() => handleInputChange('checkbox', !formData.checkbox)}
+					isChecked={formData.checkbox}
+					submitted={submitted}
 				/>
 
 				<Flex mb='12px' w='full'>

@@ -1,12 +1,13 @@
 import {
 	FormControl,
+	FormControlProps,
 	FormErrorMessage,
 	FormLabel,
 	Input,
 } from '@chakra-ui/react';
 import { FC } from 'react';
 
-type TextInputProps = {
+type TextInputProps = FormControlProps & {
 	label?: string;
 	type: string;
 	errorMsg?: string;
@@ -28,19 +29,34 @@ const TextInput: FC<TextInputProps> = ({
 	isRequired = false,
 	submitted = false,
 	fieldKey,
+	...props
 }) => {
 	// Check for errors if the field is required and if the form was submitted
 	const isError = isRequired && submitted && value === '';
 
 	return (
-		<FormControl mb='12px' isInvalid={isError}>
-			{label && <FormLabel>{label}</FormLabel>}
+		<FormControl
+			border='1px solid #ddd'
+			p='24px'
+			mb='12px'
+			isInvalid={isError}
+			borderRadius='8px'
+			fontFamily='inter'
+			{...props}
+		>
+			{label && (
+				<FormLabel fontFamily='inter' fontSize='.9rem'>
+					{label}
+				</FormLabel>
+			)}
 			<Input
 				type={type}
 				value={value}
 				placeholder={placeholder}
 				onChange={e => handleChange(fieldKey, e.target.value)}
-				border='1px solid #ababab'
+				fontFamily='inter'
+				variant='flushed'
+				_placeholder={{ fontSize: '.85rem' }}
 			/>
 			{isError && <FormErrorMessage>{errorMsg}</FormErrorMessage>}
 		</FormControl>
