@@ -21,6 +21,7 @@ const CustomFormControl: FC<CustomFormControlProps> = ({
 			fontFamily='inter'
 			border='1px solid #ddd'
 			isRequired={isRequired}
+			bg='#ffffff'
 			{...props}
 		>
 			{children}

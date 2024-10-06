@@ -10,7 +10,7 @@ type TextInputProps = FormControlProps & {
 	label?: string;
 	type: string;
 	errorMsg?: string;
-	value:any;
+	value: any;
 	placeholder?: string;
 	handleChange: (key: string, value: string) => void;
 	isRequired?: boolean;
@@ -42,6 +42,7 @@ const TextInput: FC<TextInputProps> = ({
 			borderRadius='8px'
 			fontFamily='inter'
 			isRequired={isRequired}
+			bg='#ffffff'
 			{...props}
 		>
 			{label && (

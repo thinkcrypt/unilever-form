@@ -16,8 +16,6 @@ import { store } from '@/store';
 //   weight: "100 900",
 // });
 
-
-
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -25,7 +23,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body /*className={`${geistSans.variable} ${geistMono.variable}`}*/>
+			<body
+				style={{
+					backgroundColor: '#F9F9F9',
+				}} /*className={`${geistSans.variable} ${geistMono.variable}`}*/
+			>
 				<Provider store={store}>
 					<Providers>{children}</Providers>
 				</Provider>

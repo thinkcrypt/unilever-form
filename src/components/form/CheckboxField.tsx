@@ -5,20 +5,19 @@ import { CustomFormControl } from '@/components';
 type CheckboxFieldProps = CheckboxProps & {
 	children?: string;
 	isChecked: boolean;
-	submitted?: boolean;
+	isRequired?: boolean;
 	handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void; // Updated type for handleChange
 };
 
 const CheckboxField: FC<CheckboxFieldProps> = ({
 	children,
 	isChecked,
-	submitted,
+	isRequired,
 	handleChange,
 	...props
 }) => {
-	const isError = submitted && !isChecked; // Adjusted to check isChecked directly
 	return (
-		<CustomFormControl isInvalid={isError}>
+		<CustomFormControl isRequired={isRequired}>
 			<Checkbox
 				isChecked={isChecked}
 				onChange={handleChange}

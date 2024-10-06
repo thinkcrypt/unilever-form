@@ -1,4 +1,5 @@
-import { Box, Text } from '@chakra-ui/react';
+'use client';
+import { Flex, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
 type TimerProps = {
@@ -6,7 +7,7 @@ type TimerProps = {
 };
 
 const Timer: React.FC<TimerProps> = ({ onTimeExpired }) => {
-	const [seconds, setSeconds] = useState(180); // 3 minutes in seconds
+	const [seconds, setSeconds] = useState(10); // 3 minutes in seconds
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -32,9 +33,9 @@ const Timer: React.FC<TimerProps> = ({ onTimeExpired }) => {
 	};
 
 	return (
-		<Box style={{ textAlign: 'center', marginTop: '50px' }}>
-			<Text>{formatTime(seconds)}</Text>
-		</Box>
+		<Flex justifyContent='flex-start' alignItems='center'>
+			<Text fontSize='.85rem'>{formatTime(seconds)}</Text>
+		</Flex>
 	);
 };
 
