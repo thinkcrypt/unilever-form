@@ -6,11 +6,17 @@ import {
 	RadioInput,
 	TextInput,
 } from '@/components';
+import { useAppDispatch } from '@/components/library/useReduxHooks';
 import { formFields, genderField } from '@/lib/data';
+import { useRegisterMutation } from '@/store/services/authApi';
+import { login } from '@/store/slices/authSlice';
 import { Box, Button, Flex, Input } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Home = () => {
+	const [trigger, result] = useRegisterMutation();
+	const dispatch = useAppDispatch();
+
 	const [submitted, setSubmitted] = useState(false);
 	const [formData, setFormData] = useState({
 		name: '',
@@ -20,7 +26,7 @@ const Home = () => {
 		area: '',
 		currentUsingBrand: '',
 	});
-
+	//
 	// For show and hide code number input field
 	const [codeField, setCodeField] = useState<boolean>(false);
 
@@ -34,6 +40,8 @@ const Home = () => {
 
 	const handleCodeNumber = (value: string) => {
 		setCodeNumber(value);
+		// trigger({...formData,otp:value})
+		console.log('pin and form data:', { ...formData, otp: value });
 	};
 
 	// Handle Input Change Event
@@ -46,6 +54,8 @@ const Home = () => {
 
 	// Get Code Button Logic
 	const handleGetCodeInput = () => {
+		console.log('only form data:', formData);
+		// trigger(formData);
 		setSubmitted(true);
 		// Check if all required fields are filled
 		if (
@@ -60,6 +70,14 @@ const Home = () => {
 
 		handleCodeField(true);
 	};
+	// api result
+	const { isSuccess, isError, isLoading, error } = result;
+	// is register is successful
+	useEffect(() => {
+		if (result.isSuccess) {
+			dispatch(login(result.data));
+		}
+	}, [dispatch, result.isSuccess, result.data]);
 
 	// Form Verification Logic
 	const handleVerify = () => {
