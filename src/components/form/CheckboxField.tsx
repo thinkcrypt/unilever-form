@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxProps } from '@chakra-ui/react';
+import { Checkbox, CheckboxProps, Text } from '@chakra-ui/react';
 import React, { FC } from 'react';
 import { CustomFormControl } from '@/components';
 
@@ -36,11 +36,12 @@ const CheckboxField: FC<CheckboxFieldProps> = ({
 						color: 'white', // Checkmark color
 					},
 				}}
-				size='lg'
-				fontSize='.8rem'
+				size='md'
 			>
-				{children ||
-					'আমি সম্মতি দিচ্ছি যে আমার বয়স ১৮ বছরের উর্দ্ধে। আমি ইউনিলিভার বাংলাদেশ লিমিটেড এবং তার সাথে সম্পর্কিত তৃতীয় পক্ষকে আমার ব্যক্তিগত তথ্য ব্যবহার, সংরক্ষণ, প্রক্রিয়াকরণ এবং আমার সাথে যোগাযোগ করার অনুমতি দিচ্ছি।'}
+				<Text fontSize='0.9rem' mt='-2px'>
+					{children ||
+						'আমি সম্মতি দিচ্ছি যে আমার বয়স ১৮ বছরের উর্দ্ধে। আমি ইউনিলিভার বাংলাদেশ লিমিটেড এবং তার সাথে সম্পর্কিত তৃতীয় পক্ষকে আমার ব্যক্তিগত তথ্য ব্যবহার, সংরক্ষণ, প্রক্রিয়াকরণ এবং আমার সাথে যোগাযোগ করার অনুমতি দিচ্ছি।'}
+				</Text>
 			</Checkbox>
 		</CustomFormControl>
 	);

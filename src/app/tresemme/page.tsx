@@ -13,7 +13,7 @@ import {
 	useGetotpMutation,
 	useSubmitFormMutation,
 } from '@/store/services/getOtp';
-import { Box, Flex } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Flex, Text } from '@chakra-ui/react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -22,8 +22,8 @@ type ErrorResponse = {
 	[key: string]: any; // To allow other fields you might not account for
 };
 const Home = () => {
-	// const [errorMessage, setErrorMessage] = useState<string | null>(null);
-	// const [fromErrorMessage, setFormErrorMessage] = useState<string | null>(null);
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
+	const [fromErrorMessage, setFormErrorMessage] = useState<string | null>(null);
 	const [trigger, result] = useGetotpMutation();
 	const [submitFormTrigger, formResult] = useSubmitFormMutation();
 
@@ -35,7 +35,7 @@ const Home = () => {
 				// Check if data exists and has a 'message' property
 				const errorData = fetchBaseQueryError?.data as ErrorResponse; // Cast data to ErrorResponse
 				if (errorData?.message) {
-					// setErrorMessage(errorData.message);
+					setErrorMessage(errorData.message);
 				}
 			}
 		}
@@ -49,7 +49,7 @@ const Home = () => {
 				// Check if data exists and has a 'message' property
 				const errorData = fetchBaseQueryError?.data as ErrorResponse; // Cast data to ErrorResponse
 				if (errorData?.message) {
-					// setFormErrorMessage(errorData?.message);
+					setFormErrorMessage(errorData?.message);
 				}
 			}
 		}
@@ -86,21 +86,24 @@ const Home = () => {
 	// Get Code Button Logic
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		setCodeField(true);
-		trigger({brand:'tresemme', phone: formData?.phone});
+		setErrorMessage('')
+		setFormErrorMessage('')
+		trigger({ brand: 'tresemme', phone: formData?.phone });
 	};
 	// handle resend
-	const handleResend = () => {};
+	const handleResend = () => {
+		trigger({ brand: 'tresemme', phone: formData?.phone });
+	};
 	// form all data
 	const handleSubmitAllData = () => {
 		submitFormTrigger({
-			brand: 'petromax',
+			brand: 'tresemme',
 			formData: {
-				// name: formData?.name,
-				// phone: formData?.phone,
-				// gender: formData?.gender,
+				name: formData?.name,
+				phone: formData?.phone,
 				age: formData?.age,
 				otp: formData?.otp,
+				parlorCode: formData?.parlorCode,
 			},
 		});
 	};
@@ -111,6 +114,14 @@ const Home = () => {
 			router.push('/success');
 		}
 	}, [formResult?.isSuccess, formResult?.isLoading, router]);
+
+	// is register is successful
+	useEffect(() => {
+		if (result?.isSuccess && !result?.isLoading) {
+			setCodeField(true);
+		}
+	}, [result?.isSuccess, result?.isLoading]);
+
 	return (
 		<Box py='80px' w='full' h='full'>
 			<FormLogo />
@@ -143,39 +154,86 @@ const Home = () => {
 					/>
 
 					{!codeField && (
-						<Flex justifyContent='flex-end' mb='12px' w='full'>
+						<Flex
+							justifyContent={{
+								base:
+									errorMessage || fromErrorMessage
+										? 'space-between'
+										: 'flex-end',
+							}}
+							gap='1rem'
+							alignItems='center'
+							mb='12px'
+							w='full'
+						>
+							{errorMessage && (
+								<Alert status='error'>
+									<AlertIcon />
+									{errorMessage}
+								</Alert>
+							)}
+							{fromErrorMessage && (
+								<Alert status='error'>
+									<AlertIcon />
+									{fromErrorMessage}
+								</Alert>
+							)}
 							<FormButton type='submit' isLoading={result?.isLoading}>
 								Get OTP
 							</FormButton>
 						</Flex>
 					)}
 
-					{codeField && (
-						<OtpField
-							value={formData.otp}
-							fieldKey={formData.otp}
-							handleChange={(key: string, value: string) =>
-								handleInputChange('otp', value)
-							}
-							type='number'
-							label='Enter OTP'
-							placeholder='123456'
-							handleTimeExpired={handleTimeExpired}
-							timeExpired={timeExpired}
-							handleResend={handleResend}
-						/>
-					)}
+					<Flex w='100%' flexDirection='column'>
+						{codeField && (
+							<OtpField
+								value={formData.otp}
+								fieldKey={formData.otp}
+								handleChange={(key: string, value: string) =>
+									handleInputChange('otp', value)
+								}
+								type='number'
+								label='Enter OTP'
+								placeholder='123456'
+								handleTimeExpired={handleTimeExpired}
+								timeExpired={timeExpired}
+								handleResend={handleResend}
+							/>
+						)}
 
-					{codeField && (
-						<Flex justifyContent='flex-end' w='full'>
-							<FormButton
-								onClick={handleSubmitAllData}
-								disabled={formData?.otp == ''}
+						{codeField && (
+							<Flex
+								justifyContent={{
+									base:
+										errorMessage || fromErrorMessage
+											? 'space-between'
+											: 'flex-end',
+								}}
+								gap='1rem'
+								alignItems='center'
+								w='full'
 							>
-								Submit
-							</FormButton>
-						</Flex>
-					)}
+								{errorMessage && (
+									<Alert status='error'>
+										<AlertIcon />
+										{errorMessage}
+									</Alert>
+								)}
+								{fromErrorMessage && (
+									<Alert status='error'>
+										<AlertIcon />
+										{fromErrorMessage}
+									</Alert>
+								)}
+								<FormButton
+									onClick={handleSubmitAllData}
+									disabled={formData?.otp == ''}
+								>
+									Submit
+								</FormButton>
+							</Flex>
+						)}
+					</Flex>
 				</FormContainer>
 			</form>
 		</Box>
