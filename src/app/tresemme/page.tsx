@@ -101,6 +101,7 @@ const Home = () => {
 		setErrorMessage(null);
 		setFormErrorMessage(null);
 		trigger({ brand: 'tresemme', phone: formData?.phone });
+		setTimeExpired(false);
 	};
 	// form all data
 	const handleSubmitAllData = () => {
@@ -156,6 +157,22 @@ const Home = () => {
 						/>
 					))}
 
+					{codeField && (
+						<OtpField
+							value={formData.otp}
+							fieldKey={formData.otp}
+							handleChange={(key: string, value: string) =>
+								handleInputChange('otp', value)
+							}
+							type='number'
+							label='Enter OTP'
+							placeholder='123456'
+							handleTimeExpired={handleTimeExpired}
+							timeExpired={timeExpired}
+							handleResend={handleResend}
+						/>
+					)}
+
 					{/* Checkbox field */}
 					<CheckboxField
 						handleChange={() =>
@@ -193,8 +210,7 @@ const Home = () => {
 						</Flex>
 					)}
 
-					<Flex w='100%' flexDirection='column'>
-						{codeField && (
+					{/* {codeField && (
 							<OtpField
 								value={formData.otp}
 								fieldKey={formData.otp}
@@ -208,32 +224,31 @@ const Home = () => {
 								timeExpired={timeExpired}
 								handleResend={handleResend}
 							/>
-						)}
+						)} */}
 
-						{codeField && (
-							<Flex flexDir='column' alignItems='flex-end' gap='1rem' w='full'>
-								{errorMessage && (
-									<Alert status='error'>
-										<AlertIcon />
-										{errorMessage}
-									</Alert>
-								)}
-								{fromErrorMessage && (
-									<Alert status='error'>
-										<AlertIcon />
-										{fromErrorMessage}
-									</Alert>
-								)}
-								<FormButton
-									onClick={handleSubmitAllData}
-									disabled={formData?.otp == ''}
-									isLoading={formResult?.isLoading}
-								>
-									Submit
-								</FormButton>
-							</Flex>
-						)}
-					</Flex>
+					{codeField && (
+						<Flex flexDir='column' alignItems='flex-end' gap='1rem' w='full'>
+							{errorMessage && (
+								<Alert status='error'>
+									<AlertIcon />
+									{errorMessage}
+								</Alert>
+							)}
+							{fromErrorMessage && (
+								<Alert status='error'>
+									<AlertIcon />
+									{fromErrorMessage}
+								</Alert>
+							)}
+							<FormButton
+								onClick={handleSubmitAllData}
+								disabled={formData?.otp == ''}
+								isLoading={formResult?.isLoading}
+							>
+								Submit
+							</FormButton>
+						</Flex>
+					)}
 				</FormContainer>
 			</form>
 		</Box>

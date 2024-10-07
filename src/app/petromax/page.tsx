@@ -27,35 +27,7 @@ const Home = () => {
 	const [fromErrorMessage, setFormErrorMessage] = useState<string | null>(null);
 	const [trigger, result] = useGetotpMutation();
 	const [submitFormTrigger, formResult] = useSubmitFormMutation();
-
-	useEffect(() => {
-		// Error handling logic
-		if (result?.error) {
-			if ('status' in result.error) {
-				const fetchBaseQueryError = result.error as FetchBaseQueryError;
-				// Check if data exists and has a 'message' property
-				const errorData = fetchBaseQueryError?.data as ErrorResponse; // Cast data to ErrorResponse
-				if (errorData?.message) {
-					setErrorMessage(errorData.message);
-				}
-			}
-		}
-	}, [result?.error]);
-	
-	// formData error
-	useEffect(() => {
-		// Error handling logic
-		if (formResult?.error) {
-			if ('status' in formResult.error) {
-				const fetchBaseQueryError = formResult?.error as FetchBaseQueryError;
-				// Check if data exists and has a 'message' property
-				const errorData = fetchBaseQueryError?.data as ErrorResponse; // Cast data to ErrorResponse
-				if (errorData?.message) {
-					setFormErrorMessage(errorData?.message);
-				}
-			}
-		}
-	}, [formResult?.error]);
+	const router = useRouter();
 
 	const [formData, setFormData] = useState({
 		name: '',
@@ -93,6 +65,7 @@ const Home = () => {
 		setErrorMessage(null);
 		setFormErrorMessage(null);
 		trigger({ brand: 'petromax', phone: formData?.phone });
+		setTimeExpired(false)
 	};
 
 	// Get Code Button Logic
@@ -121,7 +94,35 @@ const Home = () => {
 		});
 	};
 
-	const router = useRouter();
+
+
+	useEffect(() => {
+		// Error handling logic
+		if (result?.error) {
+			if ('status' in result.error) {
+				const fetchBaseQueryError = result.error as FetchBaseQueryError;
+				// Check if data exists and has a 'message' property
+				const errorData = fetchBaseQueryError?.data as ErrorResponse; // Cast data to ErrorResponse
+				if (errorData?.message) {
+					setErrorMessage(errorData.message);
+				}
+			}
+		}
+	}, [result?.error]);
+	// formData error
+	useEffect(() => {
+		// Error handling logic
+		if (formResult?.error) {
+			if ('status' in formResult.error) {
+				const fetchBaseQueryError = formResult?.error as FetchBaseQueryError;
+				// Check if data exists and has a 'message' property
+				const errorData = fetchBaseQueryError?.data as ErrorResponse; // Cast data to ErrorResponse
+				if (errorData?.message) {
+					setFormErrorMessage(errorData?.message);
+				}
+			}
+		}
+	}, [formResult?.error]);
 
 	useEffect(() => {
 		if (result?.isSuccess) {
@@ -176,14 +177,6 @@ const Home = () => {
 					>
 						{checkboxText?.petromax}
 					</CheckboxField>
-
-					{/* {!codeField && (
-						<Flex justifyContent='flex-end' mb='12px' w='full'>
-							<FormButton type='submit' isLoading={result?.isLoading}>
-								Get OTP
-							</FormButton>
-						</Flex>
-					)} */}
 
 					{!codeField && (
 						<Flex
