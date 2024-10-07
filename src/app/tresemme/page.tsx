@@ -73,6 +73,10 @@ const Home = () => {
 		key: keyof typeof formData,
 		value: string | boolean
 	) => {
+		if (key === 'phone' || key === 'otp') {
+			setErrorMessage(null);
+			setFormErrorMessage(null);
+		}
 		setFormData(prev => ({
 			...prev,
 			[key]: value,
@@ -86,19 +90,23 @@ const Home = () => {
 	// Get Code Button Logic
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		setErrorMessage('');
-		setFormErrorMessage('');
+		setErrorMessage(null);
+		setFormErrorMessage(null);
+
 		trigger({ brand: 'tresemme', phone: formData?.phone });
 	};
 
 	// handle resend
 	const handleResend = () => {
-		setErrorMessage('');
-		setFormErrorMessage('');
+		setErrorMessage(null);
+		setFormErrorMessage(null);
 		trigger({ brand: 'tresemme', phone: formData?.phone });
 	};
 	// form all data
 	const handleSubmitAllData = () => {
+		setErrorMessage(null);
+		setFormErrorMessage(null);
+
 		submitFormTrigger({
 			brand: 'tresemme',
 			formData: {
@@ -114,6 +122,7 @@ const Home = () => {
 	const router = useRouter();
 	useEffect(() => {
 		if (formResult?.isSuccess && !formResult?.isLoading) {
+			router.push('/tresemme/success');
 			router.push('/tresemme/success');
 		}
 	}, [formResult?.isSuccess, formResult?.isLoading, router]);
@@ -160,14 +169,9 @@ const Home = () => {
 
 					{!codeField && (
 						<Flex
-							justifyContent={{
-								base:
-									errorMessage || fromErrorMessage
-										? 'space-between'
-										: 'flex-end',
-							}}
+							flexDir='column'
+							alignItems='flex-end'
 							gap='1rem'
-							alignItems='center'
 							mb='12px'
 							w='full'
 						>
@@ -207,17 +211,7 @@ const Home = () => {
 						)}
 
 						{codeField && (
-							<Flex
-								justifyContent={{
-									base:
-										errorMessage || fromErrorMessage
-											? 'space-between'
-											: 'flex-end',
-								}}
-								gap='1rem'
-								alignItems='center'
-								w='full'
-							>
+							<Flex flexDir='column' alignItems='flex-end' gap='1rem' w='full'>
 								{errorMessage && (
 									<Alert status='error'>
 										<AlertIcon />
