@@ -50,6 +50,7 @@ const Home = () => {
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		setCodeField(true);
+		console.log('Da', formData);
 	};
 
 	const handleResend = () => {};

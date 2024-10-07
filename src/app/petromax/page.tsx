@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import {
 	CheckboxField,
@@ -52,6 +54,7 @@ const Home = () => {
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		setCodeField(true);
+		console.log('FormFieldsdfdf', formData);
 	};
 	// api result
 	const { isSuccess, isError, isLoading, error } = result;

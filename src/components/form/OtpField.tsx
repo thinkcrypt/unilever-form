@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Flex, FormControl, FormLabel, Input, Text } from '@chakra-ui/react';
 import React, { FC } from 'react';
 import Timer from './Timer';
@@ -54,6 +55,7 @@ const OtpField: FC<OtpFieldProps> = ({
 				placeholder={placeholder}
 				onChange={e => handleChange(fieldKey, e.target.value)}
 				fontFamily='inter'
+				variant='flushed'
 				_placeholder={{ fontSize: '.85rem' }}
 			/>
 			{/* {isError && <FormErrorMessage>{errorMsg}</FormErrorMessage>} */}
