@@ -62,19 +62,20 @@ const Home = () => {
 	const handleSubmitAllData = () => {
 		submitFormTrigger({ ...formData, phone: formData.phone });
 	};
+
 	const router = useRouter();
 	useEffect(() => {
 		if (formResult?.isSuccess && !formResult?.isLoading) {
 			router.push('/success');
 		}
-	}, [formResult?.isSuccess]);
+	}, [formResult?.isSuccess, formResult?.isLoading, router]);
 
 	// is register is successful
 	useEffect(() => {
 		if (result?.isSuccess && !result?.isLoading) {
 			setCodeField(true);
 		}
-	}, [result?.isSuccess]);
+	}, [result?.isSuccess, result?.isLoading]);
 
 	return (
 		<Box py='80px' w='full' h='full'>

@@ -1,10 +1,8 @@
-import { breakpoints } from "@/lib/constants";
-import { extendTheme } from "@chakra-ui/react";
-import { colors } from "./colors.theme";
+import { extendTheme } from '@chakra-ui/react';
+import { colors } from './colors.theme';
 
 const theme = extendTheme({
-  colors: colors,
-  breakpoints: breakpoints,
+	colors: colors,
 });
 
 export default theme;
