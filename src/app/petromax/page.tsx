@@ -41,6 +41,7 @@ const Home = () => {
 			}
 		}
 	}, [result?.error]);
+	
 	// formData error
 	useEffect(() => {
 		// Error handling logic
