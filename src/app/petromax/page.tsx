@@ -42,6 +42,7 @@ const Home = () => {
 	// For show and hide code number input field
 	const [codeField, setCodeField] = useState<boolean>(false);
 	const [timeExpired, setTimeExpired] = useState(false);
+	const [formFieldDisabled, setFormFieldDisabled] = useState(false);
 
 	// Handle Input Change Event
 	const handleInputChange = (
@@ -65,12 +66,13 @@ const Home = () => {
 		setErrorMessage(null);
 		setFormErrorMessage(null);
 		trigger({ brand: 'petromax', phone: formData?.phone });
-		setTimeExpired(false)
+		setTimeExpired(false);
 	};
 
 	// Get Code Button Logic
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
+		setFormFieldDisabled(true);
 		setErrorMessage(null);
 		setFormErrorMessage(null);
 		trigger({ brand: 'petromax', phone: formData?.phone });
@@ -93,8 +95,6 @@ const Home = () => {
 			},
 		});
 	};
-
-
 
 	useEffect(() => {
 		// Error handling logic
@@ -156,6 +156,7 @@ const Home = () => {
 							isRequired={true}
 							fieldKey={field.fieldKey}
 							borderTop={i === 0 ? '8px solid #A78C61' : undefined}
+							disabled={formFieldDisabled}
 						/>
 					))}
 					{/* Gender Field */}
@@ -165,6 +166,7 @@ const Home = () => {
 						value={formData.gender}
 						errorMsg='Gender is required'
 						handleChange={(key, value) => handleInputChange('gender', value)}
+						disabled={formFieldDisabled}
 					/>
 
 					{/* Checkbox Field */}
@@ -174,6 +176,7 @@ const Home = () => {
 						}
 						isChecked={formData.checkbox}
 						isRequired={true}
+						disabled={formFieldDisabled}
 					>
 						{checkboxText?.petromax}
 					</CheckboxField>

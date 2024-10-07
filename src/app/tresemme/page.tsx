@@ -26,6 +26,7 @@ const Home = () => {
 	const [fromErrorMessage, setFormErrorMessage] = useState<string | null>(null);
 	const [trigger, result] = useGetotpMutation();
 	const [submitFormTrigger, formResult] = useSubmitFormMutation();
+	const [formFieldDisabled, setFormFieldDisabled] = useState(false);
 
 	useEffect(() => {
 		// Error handling logic
@@ -90,6 +91,7 @@ const Home = () => {
 	// Get Code Button Logic
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
+		setFormFieldDisabled(true);
 		setErrorMessage(null);
 		setFormErrorMessage(null);
 
@@ -154,6 +156,7 @@ const Home = () => {
 							isRequired={true}
 							fieldKey={field.fieldKey}
 							borderTop={i === 0 ? '8px solid #A78C61' : undefined}
+							disabled={formFieldDisabled}
 						/>
 					))}
 
@@ -180,6 +183,7 @@ const Home = () => {
 						}
 						isChecked={formData.checkbox}
 						isRequired={true}
+						disabled={formFieldDisabled}
 					>
 						{checkboxText?.tresemme}
 					</CheckboxField>
@@ -209,22 +213,6 @@ const Home = () => {
 							</FormButton>
 						</Flex>
 					)}
-
-					{/* {codeField && (
-							<OtpField
-								value={formData.otp}
-								fieldKey={formData.otp}
-								handleChange={(key: string, value: string) =>
-									handleInputChange('otp', value)
-								}
-								type='number'
-								label='Enter OTP'
-								placeholder='123456'
-								handleTimeExpired={handleTimeExpired}
-								timeExpired={timeExpired}
-								handleResend={handleResend}
-							/>
-						)} */}
 
 					{codeField && (
 						<Flex flexDir='column' alignItems='flex-end' gap='1rem' w='full'>
