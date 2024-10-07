@@ -24,6 +24,7 @@ const BrandComponent: FC<BrandComponentProps> = ({ brandName, logo, link }) => {
 				width='300px'
 				h='200px'
 				transition='.2s'
+				boxShadow={`0px 0px 10px ${colors.shadowColor}`}
 				_hover={{
 					border: '1px solid',
 					borderColor: colors.hoverBorderColor, // No extra braces here
