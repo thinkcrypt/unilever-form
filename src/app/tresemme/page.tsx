@@ -87,7 +87,7 @@ const Home = () => {
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		setCodeField(true);
-		trigger({ brand: 'tresemme', phone: formData?.phone });
+		trigger({brand:'tresemme', phone: formData?.phone});
 	};
 	// handle resend
 	const handleResend = () => {};
