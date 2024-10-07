@@ -13,7 +13,7 @@ import {
 	useGetotpMutation,
 	useSubmitFormMutation,
 } from '@/store/services/getOtp';
-import { Alert, AlertIcon, Box, Flex,  } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Flex } from '@chakra-ui/react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -86,13 +86,15 @@ const Home = () => {
 	// Get Code Button Logic
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		setErrorMessage('')
-		setFormErrorMessage('')
+		setErrorMessage('');
+		setFormErrorMessage('');
 		trigger({ brand: 'tresemme', phone: formData?.phone });
 	};
 
 	// handle resend
 	const handleResend = () => {
+		setErrorMessage('');
+		setFormErrorMessage('');
 		trigger({ brand: 'tresemme', phone: formData?.phone });
 	};
 	// form all data
@@ -125,7 +127,7 @@ const Home = () => {
 
 	return (
 		<Box py='80px' w='full' h='full'>
-			<FormLogo />
+			<FormLogo imgSrc='/logo/TRESEMME.png' />
 			<form onSubmit={handleSubmit}>
 				<FormContainer>
 					{tresemmeFormFields?.map((field, i) => (
@@ -231,6 +233,7 @@ const Home = () => {
 								<FormButton
 									onClick={handleSubmitAllData}
 									disabled={formData?.otp == ''}
+									isLoading={formResult?.isLoading}
 								>
 									Submit
 								</FormButton>

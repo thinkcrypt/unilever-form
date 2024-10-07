@@ -4,6 +4,7 @@ import {
 	CheckboxField,
 	FormButton,
 	FormContainer,
+	FormLogo,
 	OtpField,
 	RadioInput,
 	TextInput,
@@ -124,6 +125,7 @@ const Home = () => {
 
 	return (
 		<Box py='80px' w='full' h='full'>
+			<FormLogo imgSrc='/logo/petromax.png' />
 			<form onSubmit={handleSubmit}>
 				<FormContainer>
 					{formFields?.map((field, i) => (
@@ -158,7 +160,9 @@ const Home = () => {
 						}
 						isChecked={formData.checkbox}
 						isRequired={true}
-					>{checkboxText?.petromax}</CheckboxField>
+					>
+						{checkboxText?.petromax}
+					</CheckboxField>
 
 					{!codeField && (
 						<Flex justifyContent='flex-end' mb='12px' w='full'>

@@ -21,6 +21,8 @@ const BrandComponent: FC<BrandComponentProps> = ({ brandName, logo, link }) => {
 				alignItems='center'
 				borderColor={colors.borderColor}
 				borderRadius='8px'
+				width='300px'
+				h='200px'
 			>
 				<Flex mb='16px'>
 					<Image src={logo} alt='Logo Image' />

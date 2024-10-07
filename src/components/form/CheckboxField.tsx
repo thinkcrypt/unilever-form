@@ -22,6 +22,7 @@ const CheckboxField: FC<CheckboxFieldProps> = ({
 				isChecked={isChecked}
 				onChange={handleChange}
 				alignItems='flex-start'
+				fontSize='.35rem'
 				spacing='18px'
 				{...props}
 				iconColor='white' // Checkmark color inside checkbox
@@ -38,7 +39,7 @@ const CheckboxField: FC<CheckboxFieldProps> = ({
 				}}
 				size='md'
 			>
-				{children}
+				<Text fontSize='.875rem'>{children}</Text>
 			</Checkbox>
 		</CustomFormControl>
 	);
