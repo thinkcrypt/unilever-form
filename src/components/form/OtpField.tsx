@@ -66,7 +66,7 @@ const OtpField: FC<OtpFieldProps> = ({
 					<Text
 						onClick={handleResend}
 						cursor='pointer'
-						ml='20px'
+						ml={timeExpired ? '0px' : '20px'}
 						color='green'
 						fontSize='.85rem'
 					>
