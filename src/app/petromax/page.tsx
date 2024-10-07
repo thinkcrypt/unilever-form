@@ -23,6 +23,7 @@ type ErrorResponse = {
 };
 const Home = () => {
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
+	const [fromErrorMessage, setFormErrorMessage] = useState<string | null>(null);
 	const [trigger, result] = useGetotpMutation();
 	const [submitFormTrigger, formResult] = useSubmitFormMutation();
 
@@ -38,7 +39,21 @@ const Home = () => {
 				}
 			}
 		}
-	}, [result.error]);
+	}, [result?.error]);
+	// formData error
+	useEffect(() => {
+		// Error handling logic
+		if (formResult?.error) {
+			if ('status' in formResult.error) {
+				const fetchBaseQueryError = formResult?.error as FetchBaseQueryError;
+				// Check if data exists and has a 'message' property
+				const errorData = fetchBaseQueryError?.data as ErrorResponse; // Cast data to ErrorResponse
+				if (errorData?.message) {
+					setFormErrorMessage(errorData?.message);
+				}
+			}
+		}
+	}, [formResult?.error]);
 
 	const [formData, setFormData] = useState({
 		name: '',
@@ -153,6 +168,11 @@ const Home = () => {
 					{errorMessage && (
 						<Text color='red' fontWeight='700'>
 							{errorMessage}
+						</Text>
+					)}
+					{fromErrorMessage && (
+						<Text color='red' fontWeight='700'>
+							{fromErrorMessage}
 						</Text>
 					)}
 
