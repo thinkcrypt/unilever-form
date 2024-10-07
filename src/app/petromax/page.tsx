@@ -8,7 +8,7 @@ import {
 	RadioInput,
 	TextInput,
 } from '@/components';
-import { formFields, genderField } from '@/lib/data';
+import { checkboxText, formFields, genderField } from '@/lib/data';
 import {
 	useGetotpMutation,
 	useSubmitFormMutation,
@@ -109,7 +109,7 @@ const Home = () => {
 	const router = useRouter();
 	useEffect(() => {
 		if (formResult?.isSuccess && !formResult?.isLoading) {
-			router.push('/success');
+			router.push('/petromax/success');
 		}
 	}, [formResult?.isSuccess, formResult?.isLoading, router]);
 
@@ -156,7 +156,7 @@ const Home = () => {
 						}
 						isChecked={formData.checkbox}
 						isRequired={true}
-					/>
+					>{checkboxText?.petromax}</CheckboxField>
 
 					{!codeField && (
 						<Flex justifyContent='flex-end' mb='12px' w='full'>
@@ -165,11 +165,13 @@ const Home = () => {
 							</FormButton>
 						</Flex>
 					)}
+
 					{errorMessage && (
 						<Text color='red' fontWeight='700'>
 							{errorMessage}
 						</Text>
 					)}
+
 					{fromErrorMessage && (
 						<Text color='red' fontWeight='700'>
 							{fromErrorMessage}

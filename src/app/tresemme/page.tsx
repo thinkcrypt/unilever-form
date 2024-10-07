@@ -8,7 +8,7 @@ import {
 	OtpField,
 	TextInput,
 } from '@/components';
-import { tresemmeFormFields } from '@/lib/data';
+import { checkboxText, tresemmeFormFields } from '@/lib/data';
 import {
 	useGetotpMutation,
 	useSubmitFormMutation,
@@ -87,8 +87,9 @@ const Home = () => {
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		setCodeField(true);
-		trigger({brand:'tresemme', phone: formData?.phone});
+		trigger({ brand: 'tresemme', phone: formData?.phone });
 	};
+
 	// handle resend
 	const handleResend = () => {};
 	// form all data
@@ -108,7 +109,7 @@ const Home = () => {
 	const router = useRouter();
 	useEffect(() => {
 		if (formResult?.isSuccess && !formResult?.isLoading) {
-			router.push('/success');
+			router.push('/tresemme/success');
 		}
 	}, [formResult?.isSuccess, formResult?.isLoading, router]);
 	return (
@@ -140,7 +141,9 @@ const Home = () => {
 						}
 						isChecked={formData.checkbox}
 						isRequired={true}
-					/>
+					>
+						{checkboxText?.tresemme}
+					</CheckboxField>
 
 					{!codeField && (
 						<Flex justifyContent='flex-end' mb='12px' w='full'>

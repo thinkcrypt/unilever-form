@@ -1,21 +1,24 @@
+'use client';
 import { CommonText, FormButton } from '@/components';
 import { Flex, Stack } from '@chakra-ui/react';
-import Link from 'next/link';
 import React from 'react';
+import { Link } from '@chakra-ui/react';
 import { GiCheckMark } from 'react-icons/gi';
+import { useRouter } from 'next/navigation';
 
-const page = () => {
+const Error = () => {
+	const router = useRouter();
+
+	const handleReload = () => {
+		router.push('/'); // Navigate to the homepage
+		window.location.reload(); // Reload the page after navigation
+	};
+
 	return (
-		<Flex
-			px='24px'
-			w='full'
-			h='100vh'
-			justifyContent='center'
-			alignItems='center'
-		>
+		<Flex w='full' h='100vh' justifyContent='center' alignItems='center'>
 			<Stack
 				bg='#fff'
-				w={{ base: '100%', md: '500px' }}
+				w={{ base: 'auto', md: '500px' }}
 				h={{ base: 'auto', md: '500px' }}
 				justifyContent='center'
 				alignItems='center'
@@ -28,29 +31,29 @@ const page = () => {
 					width='150px'
 					h='150px'
 					borderRadius='50%'
-					bg='#F8FAF5'
+					bg='#ffc3a8'
 					justifyContent='center'
 					alignItems='center'
 					mb='1.5rem'
 				>
-					<GiCheckMark color='#9ABC66' fontSize='3rem' />
+					<GiCheckMark color='#d34300' fontSize='3rem' />
 				</Flex>
 				<Stack alignItems='center'>
 					<CommonText
-						color='#9ABC66'
+						color='#d34300'
 						fontSize='2rem'
 						textTransform='none'
 						fontWeight='700'
 						textAlign='center'
 					>
-						Success
+						Error
 					</CommonText>
 					<CommonText mb={4} textAlign='center' textTransform='none'>
-						Information Successfull
+						Something went wrong! please reload and try again
 					</CommonText>
 					<Link href='/'>
-						<FormButton bg='#9ABC66' _hover={{ backgroundColor: '#6f8d42' }}>
-							Go Home
+						<FormButton onClick={handleReload} bg='#9ABC66'>
+							Reload
 						</FormButton>
 					</Link>
 				</Stack>
@@ -59,4 +62,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default Error;

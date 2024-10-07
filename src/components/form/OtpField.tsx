@@ -42,6 +42,7 @@ const OtpField: FC<OtpFieldProps> = ({
 			borderRadius='8px'
 			fontFamily='inter'
 			isRequired={isRequired}
+			bg='#fff'
 			{...props}
 		>
 			{label && (
@@ -60,7 +61,7 @@ const OtpField: FC<OtpFieldProps> = ({
 			/>
 			{/* {isError && <FormErrorMessage>{errorMsg}</FormErrorMessage>} */}
 			<Flex mt='10px' textAlign='left' alignItems='center'>
-				<Timer onTimeExpired={handleTimeExpired} />
+				{!timeExpired && <Timer onTimeExpired={handleTimeExpired} />}
 				{timeExpired && (
 					<Text
 						onClick={handleResend}
