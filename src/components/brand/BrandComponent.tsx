@@ -23,6 +23,11 @@ const BrandComponent: FC<BrandComponentProps> = ({ brandName, logo, link }) => {
 				borderRadius='8px'
 				width='300px'
 				h='200px'
+				transition='.2s'
+				_hover={{
+					border: '1px solid',
+					borderColor: colors.hoverBorderColor, // No extra braces here
+				}}
 			>
 				<Flex mb='16px'>
 					<Image src={logo} alt='Logo Image' />
