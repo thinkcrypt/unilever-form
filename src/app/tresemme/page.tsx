@@ -14,7 +14,6 @@ import {
 	useSubmitFormMutation,
 } from '@/store/services/getOtp';
 import { Alert, AlertIcon, Box, Flex } from '@chakra-ui/react';
-import { Alert, AlertIcon, Box, Flex } from '@chakra-ui/react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -99,8 +98,8 @@ const Home = () => {
 
 	// handle resend
 	const handleResend = () => {
-		setErrorMessage('');
-		setFormErrorMessage('');
+		setErrorMessage(null);
+		setFormErrorMessage(null);
 		trigger({ brand: 'tresemme', phone: formData?.phone });
 	};
 	// form all data
@@ -228,7 +227,6 @@ const Home = () => {
 								<FormButton
 									onClick={handleSubmitAllData}
 									disabled={formData?.otp == ''}
-									isLoading={formResult?.isLoading}
 									isLoading={formResult?.isLoading}
 								>
 									Submit

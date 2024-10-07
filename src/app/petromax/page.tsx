@@ -14,7 +14,7 @@ import {
 	useGetotpMutation,
 	useSubmitFormMutation,
 } from '@/store/services/getOtp';
-import { Alert, AlertIcon, Box, Flex, Text } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Flex } from '@chakra-ui/react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -89,7 +89,9 @@ const Home = () => {
 		setTimeExpired(true);
 	};
 	const handleResend = () => {
-		trigger({ brand: formData?.brand.toLowerCase(), phone: formData?.phone });
+		setErrorMessage(null);
+		setFormErrorMessage(null);
+		trigger({ brand: 'petromax', phone: formData?.phone });
 	};
 
 	// Get Code Button Logic
@@ -119,19 +121,19 @@ const Home = () => {
 	};
 
 	const router = useRouter();
+
+	useEffect(() => {
+		if (result?.isSuccess) {
+			setCodeField(true);
+		}
+	}, [result?.isSuccess]);
+
 	useEffect(() => {
 		if (formResult?.isSuccess && !formResult?.isLoading) {
 			router.push('/petromax/success');
 			router.push('/petromax/success');
 		}
 	}, [formResult?.isSuccess, formResult?.isLoading, router]);
-
-	// is register is successful
-	useEffect(() => {
-		if (result?.isSuccess && !result?.isLoading) {
-			setCodeField(true);
-		}
-	}, [result?.isSuccess, result?.isLoading]);
 
 	return (
 		<Box py='80px' w='full' h='full'>
