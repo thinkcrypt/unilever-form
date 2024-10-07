@@ -17,6 +17,7 @@ type TextInputProps = FormControlProps & {
 	isRequired?: boolean;
 	submitted?: boolean;
 	fieldKey: string;
+	disabled?: boolean;
 };
 
 const TextInput: FC<TextInputProps> = ({
@@ -27,6 +28,7 @@ const TextInput: FC<TextInputProps> = ({
 	handleChange,
 	isRequired = false,
 	fieldKey,
+	disabled,
 	...props
 }) => {
 	// Check for errors if the field is required and if the form was submitted
@@ -59,6 +61,7 @@ const TextInput: FC<TextInputProps> = ({
 				fontFamily='inter'
 				variant='flushed'
 				_placeholder={{ fontSize: '.85rem' }}
+				disabled={disabled}
 			/>
 			{/* {isError && <FormErrorMessage>{errorMsg}</FormErrorMessage>} */}
 		</FormControl>

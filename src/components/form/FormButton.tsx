@@ -10,7 +10,6 @@ const FormButton: FC<FormButtonProps> = ({ children, ...props }) => {
 			mr='4'
 			textTransform='uppercase'
 			colorScheme='blue'
-			bg='#A78C61'
 			transition='.4s'
 			_hover={{ backgroundColor: '#8a7048' }}
 			{...props}

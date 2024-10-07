@@ -6,6 +6,7 @@ type CheckboxFieldProps = CheckboxProps & {
 	children?: string;
 	isChecked: boolean;
 	isRequired?: boolean;
+	disabled?: boolean;
 	handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void; // Updated type for handleChange
 };
 
@@ -14,6 +15,7 @@ const CheckboxField: FC<CheckboxFieldProps> = ({
 	isChecked,
 	isRequired,
 	handleChange,
+	disabled,
 	...props
 }) => {
 	return (
@@ -24,6 +26,7 @@ const CheckboxField: FC<CheckboxFieldProps> = ({
 				alignItems='flex-start'
 				fontSize='.35rem'
 				spacing='18px'
+				disabled={disabled}
 				{...props}
 				iconColor='white' // Checkmark color inside checkbox
 				borderColor='#A78C61' // Border color for the checkbox

@@ -9,6 +9,7 @@ import {
 	RadioInput,
 	TextInput,
 } from '@/components';
+import { colors } from '@/lib/config/colors';
 import Breadcrumbs from '@/components/breadcrumb/BreadCrumb';
 import { checkboxText, formFields, genderField } from '@/lib/data';
 import {
@@ -35,7 +36,6 @@ const Home = () => {
 		phone: '',
 		gender: '',
 		age: null,
-		brand: '',
 		checkbox: false,
 		otp: '',
 	});
@@ -43,6 +43,7 @@ const Home = () => {
 	// For show and hide code number input field
 	const [codeField, setCodeField] = useState<boolean>(false);
 	const [timeExpired, setTimeExpired] = useState(false);
+	const [formFieldDisabled, setFormFieldDisabled] = useState(false);
 
 	// Handle Input Change Event
 	const handleInputChange = (
@@ -66,12 +67,13 @@ const Home = () => {
 		setErrorMessage(null);
 		setFormErrorMessage(null);
 		trigger({ brand: 'petromax', phone: formData?.phone });
-		setTimeExpired(false);
+		setTimeExpired(false);;
 	};
 
 	// Get Code Button Logic
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
+		setFormFieldDisabled(true);
 		setErrorMessage(null);
 		setFormErrorMessage(null);
 		trigger({ brand: 'petromax', phone: formData?.phone });
@@ -136,6 +138,13 @@ const Home = () => {
 		}
 	}, [formResult?.isSuccess, formResult?.isLoading, router]);
 
+	const isFormValid =
+		formData.name &&
+		formData.phone &&
+		formData.gender &&
+		formData.checkbox &&
+		formData.age !== null;
+
 	return (
 		<Box py='80px' w='full' h='full'>
 			<Breadcrumbs />
@@ -155,7 +164,8 @@ const Home = () => {
 							} // Pass key and value to handleInputChange
 							isRequired={true}
 							fieldKey={field.fieldKey}
-							borderTop={i === 0 ? '8px solid #A78C61' : undefined}
+							borderTop={i === 0 ? `8px solid ${colors.petroColor}` : undefined}
+							disabled={formFieldDisabled}
 						/>
 					))}
 					{/* Gender Field */}
@@ -165,7 +175,25 @@ const Home = () => {
 						value={formData.gender}
 						errorMsg='Gender is required'
 						handleChange={(key, value) => handleInputChange('gender', value)}
+						disabled={formFieldDisabled}
 					/>
+
+					{/* Otp Field */}
+					{codeField && (
+						<OtpField
+							value={formData.otp}
+							fieldKey={formData.otp}
+							handleChange={(key: string, value: string) =>
+								handleInputChange('otp', value)
+							}
+							type='number'
+							label='Enter OTP'
+							placeholder='123456'
+							handleTimeExpired={handleTimeExpired}
+							timeExpired={timeExpired}
+							handleResend={handleResend}
+						/>
+					)}
 
 					{/* Checkbox Field */}
 					<CheckboxField
@@ -174,77 +202,99 @@ const Home = () => {
 						}
 						isChecked={formData.checkbox}
 						isRequired={true}
+						disabled={formFieldDisabled}
 					>
 						{checkboxText?.petromax}
 					</CheckboxField>
 
+					{/* Error Messages Handling Before Getting Code */}
 					{!codeField && (
-						<Flex
-							flexDir='column'
-							alignItems='flex-end'
-							gap='1rem'
-							mb='12px'
-							w='full'
-						>
+						<>
 							{errorMessage && (
-								<Alert status='error'>
+								<Alert mb='16px' status='error'>
 									<AlertIcon />
 									{errorMessage}
 								</Alert>
 							)}
 							{fromErrorMessage && (
-								<Alert status='error'>
+								<Alert mb='16px' status='error'>
 									<AlertIcon />
 									{fromErrorMessage}
 								</Alert>
 							)}
-							<FormButton type='submit' isLoading={result?.isLoading}>
+						</>
+					)}
+
+					{!codeField && (
+						<Flex
+							alignItems='flex-end'
+							gap='1rem'
+							mb='12px'
+							w='full'
+							justifyContent='space-between'
+						>
+							<FormButton
+								bg={colors.lightBlack}
+								_hover={{ backgroundColor: colors.darkBlack }}
+								onClick={() => window.location.reload()}
+							>
+								Reset
+							</FormButton>
+							<FormButton
+								bg={colors.petroColor}
+								_hover={{ backgroundColor: colors.petroHoverColor }}
+								type='submit'
+								isLoading={result?.isLoading}
+								disabled={!isFormValid}
+							>
 								Get OTP
 							</FormButton>
 						</Flex>
 					)}
 
-					<Flex w='100%' flexDirection='column'>
-						{codeField && (
-							<OtpField
-								value={formData.otp}
-								fieldKey={formData.otp}
-								handleChange={(key: string, value: string) =>
-									handleInputChange('otp', value)
-								}
-								type='number'
-								label='Enter OTP'
-								placeholder='123456'
-								handleTimeExpired={handleTimeExpired}
-								timeExpired={timeExpired}
-								handleResend={handleResend}
-							/>
-						)}
+					{/* Error Messages Handling After Getting Code */}
+					{codeField && (
+						<>
+							{errorMessage && (
+								<Alert mb='16px' status='error'>
+									<AlertIcon />
+									{errorMessage}
+								</Alert>
+							)}
+							{fromErrorMessage && (
+								<Alert mb='16px' status='error'>
+									<AlertIcon />
+									{fromErrorMessage}
+								</Alert>
+							)}
+						</>
+					)}
 
-						{codeField && (
-							<Flex flexDir='column' alignItems='flex-end' gap='1rem' w='full'>
-								{errorMessage && (
-									<Alert status='error'>
-										<AlertIcon />
-										{errorMessage}
-									</Alert>
-								)}
-								{fromErrorMessage && (
-									<Alert status='error'>
-										<AlertIcon />
-										{fromErrorMessage}
-									</Alert>
-								)}
-								<FormButton
-									onClick={handleSubmitAllData}
-									disabled={formData?.otp == ''}
-									isLoading={formResult?.isLoading}
-								>
-									Submit
-								</FormButton>
-							</Flex>
-						)}
-					</Flex>
+					{codeField && (
+						<Flex
+							justifyContent='space-between'
+							alignItems='flex-end'
+							gap='1rem'
+							w='full'
+						>
+							<FormButton
+								bg={colors.lightBlack}
+								_hover={{ backgroundColor: colors.darkBlack }}
+								onClick={() => window.location.reload()}
+							>
+								Reset
+							</FormButton>
+							<FormButton
+								onClick={handleSubmitAllData}
+								disabled={formData?.otp == ''}
+								isLoading={formResult?.isLoading}
+								bg={colors.petroColor}
+								_hover={{ backgroundColor: colors.petroHoverColor }}
+							>
+								Submit
+							</FormButton>
+						</Flex>
+					)}
 				</FormContainer>
 			</form>
 		</Box>

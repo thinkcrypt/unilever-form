@@ -15,6 +15,7 @@ type RadioInputProps = {
 	handleChange: (key: string, value: string) => void;
 	isRequired?: boolean;
 	submitted?: boolean;
+	disabled?: boolean;
 };
 
 const RadioInput: FC<RadioInputProps> = ({
@@ -24,6 +25,7 @@ const RadioInput: FC<RadioInputProps> = ({
 	handleChange,
 	isRequired = false,
 	submitted = false,
+	disabled,
 }) => {
 	const isError = isRequired && submitted && value === '';
 	return (
@@ -34,8 +36,12 @@ const RadioInput: FC<RadioInputProps> = ({
 				onChange={genderValue => handleChange('gender', genderValue)}
 			>
 				<Stack direction='row'>
-					<Radio value='male'>Male</Radio>
-					<Radio value='female'>Female</Radio>
+					<Radio isDisabled={disabled} value='male'>
+						Male
+					</Radio>
+					<Radio isDisabled={disabled} value='female'>
+						Female
+					</Radio>
 				</Stack>
 			</RadioGroup>
 			{isError && <FormErrorMessage>{errorMsg}</FormErrorMessage>}

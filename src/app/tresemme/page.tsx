@@ -8,6 +8,7 @@ import {
 	OtpField,
 	TextInput,
 } from '@/components';
+import { colors } from '@/lib/config/colors';
 import BreadCrumb from '@/components/breadcrumb/BreadCrumb';
 
 import { checkboxText, tresemmeFormFields } from '@/lib/data';
@@ -29,6 +30,7 @@ const Home = () => {
 	const [fromErrorMessage, setFormErrorMessage] = useState<string | null>(null);
 	const [trigger, result] = useGetotpMutation();
 	const [submitFormTrigger, formResult] = useSubmitFormMutation();
+	const [formFieldDisabled, setFormFieldDisabled] = useState(false);
 
 	useEffect(() => {
 		// Error handling logic
@@ -93,6 +95,7 @@ const Home = () => {
 	// Get Code Button Logic
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
+		setFormFieldDisabled(true);
 		setErrorMessage(null);
 		setFormErrorMessage(null);
 
@@ -139,6 +142,13 @@ const Home = () => {
 		}
 	}, [result?.isSuccess, result?.isLoading]);
 
+	const isFormValid =
+		formData.name &&
+		formData.phone &&
+		formData.checkbox &&
+		formData.age !== null &&
+		formData.parlorCode;
+
 	return (
 		<Box py='80px' w='full' h='full'>
 			<BreadCrumb />
@@ -159,6 +169,7 @@ const Home = () => {
 							isRequired={true}
 							fieldKey={field.fieldKey}
 							borderTop={i === 0 ? '8px solid #A78C61' : undefined}
+							disabled={formFieldDisabled}
 						/>
 					))}
 
@@ -185,70 +196,92 @@ const Home = () => {
 						}
 						isChecked={formData.checkbox}
 						isRequired={true}
+						disabled={formFieldDisabled}
 					>
 						{checkboxText?.tresemme}
 					</CheckboxField>
 
 					{!codeField && (
-						<Flex
-							flexDir='column'
-							alignItems='flex-end'
-							gap='1rem'
-							mb='12px'
-							w='full'
-						>
+						<>
 							{errorMessage && (
-								<Alert status='error'>
+								<Alert mb='16px' status='error'>
 									<AlertIcon />
 									{errorMessage}
 								</Alert>
 							)}
 							{fromErrorMessage && (
-								<Alert status='error'>
+								<Alert mb='16px' status='error'>
 									<AlertIcon />
 									{fromErrorMessage}
 								</Alert>
 							)}
-							<FormButton type='submit' isLoading={result?.isLoading}>
+						</>
+					)}
+
+					{!codeField && (
+						<Flex
+							alignItems='flex-end'
+							gap='1rem'
+							mb='12px'
+							w='full'
+							justifyContent='space-between'
+						>
+							<FormButton
+								bg={colors.lightBlack}
+								_hover={{ backgroundColor: colors.darkBlack }}
+								onClick={() => window.location.reload()}
+							>
+								Reset
+							</FormButton>
+							<FormButton
+								bg={colors.tresemmeColor}
+								_hover={{ backgroundColor: colors.tresemmeHoverColor }}
+								type='submit'
+								isLoading={result?.isLoading}
+								disabled={!isFormValid}
+							>
 								Get OTP
 							</FormButton>
 						</Flex>
 					)}
 
-					{/* {codeField && (
-							<OtpField
-								value={formData.otp}
-								fieldKey={formData.otp}
-								handleChange={(key: string, value: string) =>
-									handleInputChange('otp', value)
-								}
-								type='number'
-								label='Enter OTP'
-								placeholder='123456'
-								handleTimeExpired={handleTimeExpired}
-								timeExpired={timeExpired}
-								handleResend={handleResend}
-							/>
-						)} */}
-
+					{/* Error Messages Handling After Getting Code */}
 					{codeField && (
-						<Flex flexDir='column' alignItems='flex-end' gap='1rem' w='full'>
+						<>
 							{errorMessage && (
-								<Alert status='error'>
+								<Alert mb='16px' status='error'>
 									<AlertIcon />
 									{errorMessage}
 								</Alert>
 							)}
 							{fromErrorMessage && (
-								<Alert status='error'>
+								<Alert mb='16px' status='error'>
 									<AlertIcon />
 									{fromErrorMessage}
 								</Alert>
 							)}
+						</>
+					)}
+					{codeField && (
+						<Flex
+							justifyContent='space-between'
+							alignItems='flex-end'
+							gap='1rem'
+							w='full'
+						>
+							<FormButton
+								bg={colors.lightBlack}
+								_hover={{ backgroundColor: colors.darkBlack }}
+								onClick={() => window.location.reload()}
+							>
+								Reset
+							</FormButton>
 							<FormButton
 								onClick={handleSubmitAllData}
 								disabled={formData?.otp == ''}
 								isLoading={formResult?.isLoading}
+								bg={colors.tresemmeColor}
+								_hover={{ backgroundColor: colors.tresemmeColor }}
 							>
 								Submit
 							</FormButton>
