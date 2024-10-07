@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxProps } from '@chakra-ui/react';
+import { Checkbox, CheckboxProps, Text } from '@chakra-ui/react';
 import React, { FC } from 'react';
 import { CustomFormControl } from '@/components';
 
@@ -36,8 +36,7 @@ const CheckboxField: FC<CheckboxFieldProps> = ({
 						color: 'white', // Checkmark color
 					},
 				}}
-				size='lg'
-				fontSize='.8rem'
+				size='md'
 			>
 				{children}
 			</Checkbox>

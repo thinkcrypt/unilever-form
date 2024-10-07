@@ -31,14 +31,6 @@ export const formFields = [
 		errorMsg: 'Area is required',
 		fieldKey: 'area', // This key must match a key in formData
 	},
-	{
-		label: 'Brand',
-		type: 'text',
-		placeholder: 'Your Answer',
-		isRequired: true,
-		errorMsg: 'Area is required',
-		fieldKey: 'brand', // This key must match a key in formData
-	},
 ];
 
 export const genderField = {

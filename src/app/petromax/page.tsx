@@ -83,12 +83,14 @@ const Home = () => {
 	const handleTimeExpired = () => {
 		setTimeExpired(true);
 	};
-	const handleResend = () => {};
+	const handleResend = () => {
+		trigger({ brand: formData?.brand.toLowerCase(), phone: formData?.phone });
+	};
 
 	// Get Code Button Logic
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		trigger({ brand: formData?.brand, phone: formData?.phone });
+		trigger({ brand: formData?.brand.toLowerCase(), phone: formData?.phone });
 		// console.log('logged:', { brand: formData.brand, phone: formData.contact });
 	};
 
