@@ -54,6 +54,7 @@ const OtpField: FC<OtpFieldProps> = ({
 				placeholder={placeholder}
 				onChange={e => handleChange(fieldKey, e.target.value)}
 				fontFamily='inter'
+				variant='flushed'
 				_placeholder={{ fontSize: '.85rem' }}
 			/>
 			{/* {isError && <FormErrorMessage>{errorMsg}</FormErrorMessage>} */}
