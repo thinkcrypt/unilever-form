@@ -9,6 +9,7 @@ import {
 	RadioInput,
 	TextInput,
 } from '@/components';
+import Breadcrumbs from '@/components/breadcrumb/BreadCrumb';
 import { checkboxText, formFields, genderField } from '@/lib/data';
 import {
 	useGetotpMutation,
@@ -65,7 +66,7 @@ const Home = () => {
 		setErrorMessage(null);
 		setFormErrorMessage(null);
 		trigger({ brand: 'petromax', phone: formData?.phone });
-		setTimeExpired(false)
+		setTimeExpired(false);
 	};
 
 	// Get Code Button Logic
@@ -93,8 +94,6 @@ const Home = () => {
 			},
 		});
 	};
-
-
 
 	useEffect(() => {
 		// Error handling logic
@@ -139,6 +138,7 @@ const Home = () => {
 
 	return (
 		<Box py='80px' w='full' h='full'>
+			<Breadcrumbs />
 			<FormLogo imgSrc='/logo/petromax.png' />
 			<form onSubmit={handleSubmit}>
 				<FormContainer>
