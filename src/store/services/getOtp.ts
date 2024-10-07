@@ -16,7 +16,7 @@ export const otpApi = mainApi.injectEndpoints({
 			query: body => ({
 				url: `/brand/${body?.brand?.toLowerCase()}`,
 				method: 'POST',
-				body: body,
+				body: body?.formData,
 			}),
 			invalidatesTags: ['submitForm'],
 		}),
