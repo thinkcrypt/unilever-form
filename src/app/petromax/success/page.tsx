@@ -1,5 +1,6 @@
-import { CommonText } from '@/components';
+import { CommonText, FormButton } from '@/components';
 import { Flex, Stack } from '@chakra-ui/react';
+import Link from 'next/link';
 import React from 'react';
 import { GiCheckMark } from 'react-icons/gi';
 
@@ -38,9 +39,14 @@ const page = () => {
 					>
 						Success
 					</CommonText>
-					<CommonText textAlign='center' textTransform='none'>
+					<CommonText mb={4} textAlign='center' textTransform='none'>
 						Congratulations! You&lsquo;re all set. Thank you for verifying.
 					</CommonText>
+					<Link href='/petromax'>
+						<FormButton bg='#9ABC66' _hover={{ backgroundColor: '#6f8d42' }}>
+							Go Back
+						</FormButton>
+					</Link>
 				</Stack>
 			</Stack>
 		</Flex>
