@@ -46,7 +46,7 @@ const page = () => {
 						Success
 					</CommonText>
 					<CommonText textAlign='center' textTransform='none'>
-						Information Successfull
+						Information Successfully Submitted
 					</CommonText>
 					<Link href='/'>
 						<FormButton bg='#9ABC66' _hover={{ backgroundColor: '#6f8d42' }}>
