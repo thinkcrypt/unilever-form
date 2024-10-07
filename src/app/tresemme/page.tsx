@@ -13,7 +13,7 @@ import {
 	useGetotpMutation,
 	useSubmitFormMutation,
 } from '@/store/services/getOtp';
-import { Alert, AlertIcon, Box, Flex, Text } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Flex,  } from '@chakra-ui/react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
