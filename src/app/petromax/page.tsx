@@ -15,14 +15,33 @@ import {
 	useSubmitFormMutation,
 } from '@/store/services/getOtp';
 import { login } from '@/store/slices/authSlice';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
+import { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-
+type ErrorResponse = {
+	message?: string; // Optional in case message isn't always present
+	[key: string]: any; // To allow other fields you might not account for
+};
 const Home = () => {
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const [trigger, result] = useGetotpMutation();
 	const [submitFormTrigger, formResult] = useSubmitFormMutation();
-	// const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		// Error handling logic
+		if (result?.error) {
+			if ('status' in result.error) {
+				const fetchBaseQueryError = result.error as FetchBaseQueryError;
+				// Check if data exists and has a 'message' property
+				const errorData = fetchBaseQueryError?.data as ErrorResponse; // Cast data to ErrorResponse
+				if (errorData?.message) {
+					setErrorMessage(errorData.message);
+				}
+			}
+		}
+	}, [result.error]);
 
 	const [formData, setFormData] = useState({
 		name: '',
@@ -57,12 +76,22 @@ const Home = () => {
 	// Get Code Button Logic
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		trigger({ brand: 'petromax', phone: formData?.phone });
+		trigger({ brand: formData?.brand, phone: formData?.phone });
 		// console.log('logged:', { brand: formData.brand, phone: formData.contact });
 	};
+
 	// form all data
 	const handleSubmitAllData = () => {
-		submitFormTrigger({ ...formData, phone: formData.phone });
+		submitFormTrigger({
+			brand: 'petromax',
+			formData: {
+				name: formData?.name,
+				phone: formData?.phone,
+				gender: formData?.gender,
+				age: formData?.age,
+				otp: formData?.otp,
+			},
+		});
 	};
 	const router = useRouter();
 	useEffect(() => {
@@ -122,6 +151,11 @@ const Home = () => {
 								Get OTP
 							</FormButton>
 						</Flex>
+					)}
+					{errorMessage && (
+						<Text color='red' fontWeight='700'>
+							{errorMessage}
+						</Text>
 					)}
 
 					{codeField && (
