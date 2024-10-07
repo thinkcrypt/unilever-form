@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import {
 	CheckboxField,
@@ -7,16 +8,13 @@ import {
 	OtpField,
 	TextInput,
 } from '@/components';
-import { useAppDispatch } from '@/components/library/useReduxHooks';
 import { tresemmeFormFields } from '@/lib/data';
 import { useGetotpMutation } from '@/store/services/getOtp';
-import { login } from '@/store/slices/authSlice';
 import { Box, Flex } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const Home = () => {
-	const [trigger, result] = useGetotpMutation();
-	const dispatch = useAppDispatch();
+	const [trigger] = useGetotpMutation();
 
 	const [formData, setFormData] = useState({
 		name: '',
@@ -50,16 +48,10 @@ const Home = () => {
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
 		setCodeField(true);
+		trigger(formData);
 	};
 
 	const handleResend = () => {};
-
-	// is register is successful
-	useEffect(() => {
-		if (result.isSuccess) {
-			dispatch(login(result.data));
-		}
-	}, [dispatch, result.isSuccess, result.data]);
 
 	return (
 		<Box py='80px' w='full' h='full'>

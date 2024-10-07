@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import { URL } from '@/lib/constants';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-const tags = ['self', 'getotp',"submitForm"];
+const BASE_URL = process.env.NEXT_PUBLIC_LOCAL_BASE_API_URL;
+const tags = ['self', 'getotp', 'submitForm'];
 export const mainApi = createApi({
 	reducerPath: 'mainApi',
 	baseQuery: fetchBaseQuery({
-		baseUrl: `http://localhost:5000/api`,
+		baseUrl: `${BASE_URL}`,
 		prepareHeaders: (headers, { getState }) => {
 			const token: string = (getState() as any).auth?.token;
 			if (token) {

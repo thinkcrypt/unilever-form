@@ -8,15 +8,12 @@ import {
 	RadioInput,
 	TextInput,
 } from '@/components';
-import { useAppDispatch } from '@/components/library/useReduxHooks';
 import { formFields, genderField } from '@/lib/data';
 import {
 	useGetotpMutation,
 	useSubmitFormMutation,
 } from '@/store/services/getOtp';
-import { login } from '@/store/slices/authSlice';
 import { Box, Flex, Text } from '@chakra-ui/react';
-import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -93,19 +90,20 @@ const Home = () => {
 			},
 		});
 	};
+
 	const router = useRouter();
 	useEffect(() => {
 		if (formResult?.isSuccess && !formResult?.isLoading) {
 			router.push('/success');
 		}
-	}, [formResult?.isSuccess]);
+	}, [formResult?.isSuccess, formResult?.isLoading, router]);
 
 	// is register is successful
 	useEffect(() => {
 		if (result?.isSuccess && !result?.isLoading) {
 			setCodeField(true);
 		}
-	}, [result?.isSuccess]);
+	}, [result?.isSuccess, result?.isLoading]);
 
 	return (
 		<Box py='80px' w='full' h='full'>

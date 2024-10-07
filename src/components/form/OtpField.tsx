@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Flex, FormControl, FormLabel, Input, Text } from '@chakra-ui/react';
 import React, { FC } from 'react';
 import Timer from './Timer';

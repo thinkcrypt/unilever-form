@@ -1,12 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import mainApi from './services/mainApi';
-import { authSlice } from './slices/authSlice';
 // import { TOKEN_NAME } from '@/lib/constants';
 
 export const store = configureStore({
 	reducer: {
-		auth: authSlice.reducer,
 		// cart: cartSlice.reducer,
 		[mainApi.reducerPath]: mainApi.reducer,
 	},
