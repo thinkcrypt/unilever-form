@@ -8,11 +8,12 @@ import {
 	OtpField,
 	TextInput,
 } from '@/components';
-import { tresemmeFormFields } from '@/lib/data';
+import { checkboxText, tresemmeFormFields } from '@/lib/data';
 import {
 	useGetotpMutation,
 	useSubmitFormMutation,
 } from '@/store/services/getOtp';
+import { Alert, AlertIcon, Box, Flex } from '@chakra-ui/react';
 import { Alert, AlertIcon, Box, Flex } from '@chakra-ui/react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useRouter } from 'next/navigation';
@@ -95,8 +96,11 @@ const Home = () => {
 
 		trigger({ brand: 'tresemme', phone: formData?.phone });
 	};
+
 	// handle resend
 	const handleResend = () => {
+		setErrorMessage('');
+		setFormErrorMessage('');
 		trigger({ brand: 'tresemme', phone: formData?.phone });
 	};
 	// form all data
@@ -120,6 +124,7 @@ const Home = () => {
 	useEffect(() => {
 		if (formResult?.isSuccess && !formResult?.isLoading) {
 			router.push('/tresemme/success');
+			router.push('/tresemme/success');
 		}
 	}, [formResult?.isSuccess, formResult?.isLoading, router]);
 
@@ -132,7 +137,7 @@ const Home = () => {
 
 	return (
 		<Box py='80px' w='full' h='full'>
-			<FormLogo />
+			<FormLogo imgSrc='/logo/TRESEMME.png' />
 			<form onSubmit={handleSubmit}>
 				<FormContainer>
 					{tresemmeFormFields?.map((field, i) => (
@@ -159,7 +164,9 @@ const Home = () => {
 						}
 						isChecked={formData.checkbox}
 						isRequired={true}
-					/>
+					>
+						{checkboxText?.tresemme}
+					</CheckboxField>
 
 					{!codeField && (
 						<Flex
@@ -221,6 +228,7 @@ const Home = () => {
 								<FormButton
 									onClick={handleSubmitAllData}
 									disabled={formData?.otp == ''}
+									isLoading={formResult?.isLoading}
 									isLoading={formResult?.isLoading}
 								>
 									Submit

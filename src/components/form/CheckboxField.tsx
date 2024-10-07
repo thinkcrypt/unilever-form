@@ -22,6 +22,7 @@ const CheckboxField: FC<CheckboxFieldProps> = ({
 				isChecked={isChecked}
 				onChange={handleChange}
 				alignItems='flex-start'
+				fontSize='.35rem'
 				spacing='18px'
 				{...props}
 				iconColor='white' // Checkmark color inside checkbox
@@ -38,10 +39,7 @@ const CheckboxField: FC<CheckboxFieldProps> = ({
 				}}
 				size='md'
 			>
-				<Text fontSize='0.9rem' mt='-2px'>
-					{children ||
-						'আমি সম্মতি দিচ্ছি যে আমার বয়স ১৮ বছরের উর্দ্ধে। আমি ইউনিলিভার বাংলাদেশ লিমিটেড এবং তার সাথে সম্পর্কিত তৃতীয় পক্ষকে আমার ব্যক্তিগত তথ্য ব্যবহার, সংরক্ষণ, প্রক্রিয়াকরণ এবং আমার সাথে যোগাযোগ করার অনুমতি দিচ্ছি।'}
-				</Text>
+				<Text fontSize='.875rem'>{children}</Text>
 			</Checkbox>
 		</CustomFormControl>
 	);

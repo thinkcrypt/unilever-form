@@ -6,10 +6,16 @@ import { GiCheckMark } from 'react-icons/gi';
 
 const page = () => {
 	return (
-		<Flex w='full' h='100vh' justifyContent='center' alignItems='center'>
+		<Flex
+			px='24px'
+			w='full'
+			h='100vh'
+			justifyContent='center'
+			alignItems='center'
+		>
 			<Stack
 				bg='#fff'
-				w={{ base: 'auto', md: '500px' }}
+				w={{ base: '100%', md: '500px' }}
 				h={{ base: 'auto', md: '500px' }}
 				justifyContent='center'
 				alignItems='center'
@@ -40,11 +46,11 @@ const page = () => {
 						Success
 					</CommonText>
 					<CommonText textAlign='center' textTransform='none'>
-						Congratulations! You&lsquo;re all set. Thank you for verifying.
+						CInformation Successfull
 					</CommonText>
-					<Link href='/tresemme'>
+					<Link href='/'>
 						<FormButton bg='#9ABC66' _hover={{ backgroundColor: '#6f8d42' }}>
-							Go Back
+							Go Home
 						</FormButton>
 					</Link>
 				</Stack>

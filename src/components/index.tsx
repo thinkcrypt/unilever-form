@@ -8,4 +8,5 @@ export { default as FormLogo } from './form/FormLogo';
 export { default as OtpField } from './form/OtpField';
 export { default as Timer } from './form/Timer';
 export { default as FormButton } from './form/FormButton';
+export { default as BrandComponent } from './brand/BrandComponent';
 export * from './utils/index';

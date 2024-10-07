@@ -4,11 +4,12 @@ import {
 	CheckboxField,
 	FormButton,
 	FormContainer,
+	FormLogo,
 	OtpField,
 	RadioInput,
 	TextInput,
 } from '@/components';
-import { formFields, genderField } from '@/lib/data';
+import { checkboxText, formFields, genderField } from '@/lib/data';
 import {
 	useGetotpMutation,
 	useSubmitFormMutation,
@@ -121,6 +122,7 @@ const Home = () => {
 	useEffect(() => {
 		if (formResult?.isSuccess && !formResult?.isLoading) {
 			router.push('/petromax/success');
+			router.push('/petromax/success');
 		}
 	}, [formResult?.isSuccess, formResult?.isLoading, router]);
 
@@ -133,6 +135,7 @@ const Home = () => {
 
 	return (
 		<Box py='80px' w='full' h='full'>
+			<FormLogo imgSrc='/logo/petromax.png' />
 			<form onSubmit={handleSubmit}>
 				<FormContainer>
 					{formFields?.map((field, i) => (
@@ -167,7 +170,9 @@ const Home = () => {
 						}
 						isChecked={formData.checkbox}
 						isRequired={true}
-					/>
+					>
+						{checkboxText?.petromax}
+					</CheckboxField>
 
 					{/* {!codeField && (
 						<Flex justifyContent='flex-end' mb='12px' w='full'>

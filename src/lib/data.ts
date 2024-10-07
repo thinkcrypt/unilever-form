@@ -74,3 +74,23 @@ export const tresemmeFormFields = [
 		fieldKey: 'parlorCode', // This key must match a key in formData
 	},
 ];
+
+export const checkboxText = {
+	tresemme:
+		'আমি সম্মতি দিচ্ছি যে আমার বয়স ১৮ বছরের উর্দ্ধে। আমি ইউনিলিভার বাংলাদেশ লিমিটেড এবং তার সাথে সম্পর্কিত তৃতীয় পক্ষকে আমার ব্যক্তিগত তথ্য ব্যবহার, সংরক্ষণ, প্রক্রিয়াকরণ এবং আমার সাথে যোগাযোগ করার অনুমতি দিচ্ছি।',
+	petromax:
+		'আমি সম্মতি দিচ্ছি যে আমার বয়স ১৮ বছরের উর্দ্ধে। আমি ইউনিলিভার বাংলাদেশ লিমিটেড এবং তার সাথে সম্পর্কিত তৃতীয় পক্ষকে আমার ব্যক্তিগত তথ্য ব্যবহার, সংরক্ষণ, প্রক্রিয়াকরণ এবং আমার সাথে যোগাযোগ করার অনুমতি দিচ্ছি।',
+};
+
+export const brandData = [
+	{
+		brandName: 'Tresemme',
+		logo: '/logo/TRESEMME.png',
+		link: '/tresemme',
+	},
+	{
+		brandName: 'Petromax',
+		logo: '/logo/petromax.png',
+		link: '/petromax',
+	},
+];
