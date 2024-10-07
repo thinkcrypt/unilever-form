@@ -13,7 +13,7 @@ import {
 	useGetotpMutation,
 	useSubmitFormMutation,
 } from '@/store/services/getOtp';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Flex, Text } from '@chakra-ui/react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -74,6 +74,10 @@ const Home = () => {
 		key: keyof typeof formData,
 		value: string | boolean
 	) => {
+		if (key === 'phone' || key === 'otp') {
+			setErrorMessage(null);
+			setFormErrorMessage(null);
+		}
 		setFormData(prev => ({
 			...prev,
 			[key]: value,
@@ -90,12 +94,17 @@ const Home = () => {
 	// Get Code Button Logic
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		trigger({ brand: formData?.brand.toLowerCase(), phone: formData?.phone });
+		setErrorMessage(null);
+		setFormErrorMessage(null);
+		trigger({ brand: 'petromax', phone: formData?.phone });
 		// console.log('logged:', { brand: formData.brand, phone: formData.contact });
 	};
 
 	// form all data
 	const handleSubmitAllData = () => {
+		setErrorMessage(null);
+		setFormErrorMessage(null);
+
 		submitFormTrigger({
 			brand: 'petromax',
 			formData: {
@@ -111,7 +120,7 @@ const Home = () => {
 	const router = useRouter();
 	useEffect(() => {
 		if (formResult?.isSuccess && !formResult?.isLoading) {
-			router.push('/success');
+			router.push('/petromax/success');
 		}
 	}, [formResult?.isSuccess, formResult?.isLoading, router]);
 
@@ -160,50 +169,81 @@ const Home = () => {
 						isRequired={true}
 					/>
 
-					{!codeField && (
+					{/* {!codeField && (
 						<Flex justifyContent='flex-end' mb='12px' w='full'>
 							<FormButton type='submit' isLoading={result?.isLoading}>
 								Get OTP
 							</FormButton>
 						</Flex>
-					)}
-					{errorMessage && (
-						<Text color='red' fontWeight='700'>
-							{errorMessage}
-						</Text>
-					)}
-					{fromErrorMessage && (
-						<Text color='red' fontWeight='700'>
-							{fromErrorMessage}
-						</Text>
-					)}
+					)} */}
 
-					{codeField && (
-						<OtpField
-							value={formData.otp}
-							fieldKey={formData.otp}
-							handleChange={(key: string, value: string) =>
-								handleInputChange('otp', value)
-							}
-							type='number'
-							label='Enter OTP'
-							placeholder='123456'
-							handleTimeExpired={handleTimeExpired}
-							timeExpired={timeExpired}
-							handleResend={handleResend}
-						/>
-					)}
-
-					{codeField && (
-						<Flex justifyContent='flex-end' w='full'>
-							<FormButton
-								onClick={handleSubmitAllData}
-								disabled={formData?.otp == ''}
-							>
-								Submit
+					{!codeField && (
+						<Flex
+							flexDir='column'
+							alignItems='flex-end'
+							gap='1rem'
+							mb='12px'
+							w='full'
+						>
+							{errorMessage && (
+								<Alert status='error'>
+									<AlertIcon />
+									{errorMessage}
+								</Alert>
+							)}
+							{fromErrorMessage && (
+								<Alert status='error'>
+									<AlertIcon />
+									{fromErrorMessage}
+								</Alert>
+							)}
+							<FormButton type='submit' isLoading={result?.isLoading}>
+								Get OTP
 							</FormButton>
 						</Flex>
 					)}
+
+					<Flex w='100%' flexDirection='column'>
+						{codeField && (
+							<OtpField
+								value={formData.otp}
+								fieldKey={formData.otp}
+								handleChange={(key: string, value: string) =>
+									handleInputChange('otp', value)
+								}
+								type='number'
+								label='Enter OTP'
+								placeholder='123456'
+								handleTimeExpired={handleTimeExpired}
+								timeExpired={timeExpired}
+								handleResend={handleResend}
+							/>
+						)}
+
+						{codeField && (
+							<Flex flexDir='column' alignItems='flex-end' gap='1rem' w='full'>
+								{errorMessage && (
+									<Alert status='error'>
+										<AlertIcon />
+										{errorMessage}
+									</Alert>
+								)}
+								{fromErrorMessage && (
+									<Alert status='error'>
+										<AlertIcon />
+										{fromErrorMessage}
+									</Alert>
+								)}
+								<FormButton
+									onClick={handleSubmitAllData}
+									disabled={formData?.otp == ''}
+									isLoading={formResult?.isLoading}
+								>
+									Submit
+								</FormButton>
+							</Flex>
+						)}
+					</Flex>
 				</FormContainer>
 			</form>
 		</Box>

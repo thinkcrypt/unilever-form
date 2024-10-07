@@ -13,7 +13,7 @@ import {
 	useGetotpMutation,
 	useSubmitFormMutation,
 } from '@/store/services/getOtp';
-import { Alert, AlertIcon, Box, Flex,  } from '@chakra-ui/react';
+import { Alert, AlertIcon, Box, Flex } from '@chakra-ui/react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -73,6 +73,10 @@ const Home = () => {
 		key: keyof typeof formData,
 		value: string | boolean
 	) => {
+		if (key === 'phone' || key === 'otp') {
+			setErrorMessage(null);
+			setFormErrorMessage(null);
+		}
 		setFormData(prev => ({
 			...prev,
 			[key]: value,
@@ -86,8 +90,9 @@ const Home = () => {
 	// Get Code Button Logic
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		setErrorMessage('')
-		setFormErrorMessage('')
+		setErrorMessage(null);
+		setFormErrorMessage(null);
+
 		trigger({ brand: 'tresemme', phone: formData?.phone });
 	};
 	// handle resend
@@ -96,6 +101,9 @@ const Home = () => {
 	};
 	// form all data
 	const handleSubmitAllData = () => {
+		setErrorMessage(null);
+		setFormErrorMessage(null);
+
 		submitFormTrigger({
 			brand: 'tresemme',
 			formData: {
@@ -111,7 +119,7 @@ const Home = () => {
 	const router = useRouter();
 	useEffect(() => {
 		if (formResult?.isSuccess && !formResult?.isLoading) {
-			router.push('/success');
+			router.push('/tresemme/success');
 		}
 	}, [formResult?.isSuccess, formResult?.isLoading, router]);
 
@@ -155,14 +163,9 @@ const Home = () => {
 
 					{!codeField && (
 						<Flex
-							justifyContent={{
-								base:
-									errorMessage || fromErrorMessage
-										? 'space-between'
-										: 'flex-end',
-							}}
+							flexDir='column'
+							alignItems='flex-end'
 							gap='1rem'
-							alignItems='center'
 							mb='12px'
 							w='full'
 						>
@@ -202,17 +205,7 @@ const Home = () => {
 						)}
 
 						{codeField && (
-							<Flex
-								justifyContent={{
-									base:
-										errorMessage || fromErrorMessage
-											? 'space-between'
-											: 'flex-end',
-								}}
-								gap='1rem'
-								alignItems='center'
-								w='full'
-							>
+							<Flex flexDir='column' alignItems='flex-end' gap='1rem' w='full'>
 								{errorMessage && (
 									<Alert status='error'>
 										<AlertIcon />
@@ -228,6 +221,7 @@ const Home = () => {
 								<FormButton
 									onClick={handleSubmitAllData}
 									disabled={formData?.otp == ''}
+									isLoading={formResult?.isLoading}
 								>
 									Submit
 								</FormButton>
