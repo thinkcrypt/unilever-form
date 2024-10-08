@@ -10,6 +10,7 @@ import {
 	TextInput,
 } from '@/components';
 import { colors } from '@/lib/config/colors';
+import Breadcrumbs from '@/components/breadcrumb/BreadCrumb';
 import { checkboxText, formFields, genderField } from '@/lib/data';
 import {
 	useGetotpMutation,
@@ -66,7 +67,7 @@ const Home = () => {
 		setErrorMessage(null);
 		setFormErrorMessage(null);
 		trigger({ brand: 'petromax', phone: formData?.phone });
-		setTimeExpired(false);
+		setTimeExpired(false);;
 	};
 
 	// Get Code Button Logic
@@ -146,6 +147,7 @@ const Home = () => {
 
 	return (
 		<Box py='80px' w='full' h='full'>
+			<Breadcrumbs />
 			<FormLogo imgSrc='/logo/petromax.png' />
 			<form onSubmit={handleSubmit}>
 				<FormContainer>

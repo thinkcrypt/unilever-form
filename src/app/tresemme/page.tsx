@@ -9,6 +9,8 @@ import {
 	TextInput,
 } from '@/components';
 import { colors } from '@/lib/config/colors';
+import BreadCrumb from '@/components/breadcrumb/BreadCrumb';
+
 import { checkboxText, tresemmeFormFields } from '@/lib/data';
 import {
 	useGetotpMutation,
@@ -17,6 +19,7 @@ import {
 import { Alert, AlertIcon, Box, Flex } from '@chakra-ui/react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useRouter } from 'next/navigation';
+
 import { useEffect, useState } from 'react';
 type ErrorResponse = {
 	message?: string; // Optional in case message isn't always present
@@ -124,6 +127,7 @@ const Home = () => {
 	};
 
 	const router = useRouter();
+
 	useEffect(() => {
 		if (formResult?.isSuccess && !formResult?.isLoading) {
 			router.push('/tresemme/success');
@@ -147,6 +151,7 @@ const Home = () => {
 
 	return (
 		<Box py='80px' w='full' h='full'>
+			<BreadCrumb />
 			<FormLogo imgSrc='/logo/TRESEMME.png' />
 			<form onSubmit={handleSubmit}>
 				<FormContainer>
