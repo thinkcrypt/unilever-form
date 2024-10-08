@@ -66,6 +66,13 @@ export const tresemmeFormFields = [
 		fieldKey: 'age', // This key must match a key in formData
 	},
 	{
+		label: 'Current Using Brand',
+		type: 'string',
+		placeholder: 'Brand Name',
+		fieldKey: 'currentUsingBrand', // This key must match a key in formData
+	},
+
+	{
 		label: 'Parlor Code',
 		type: 'text',
 		placeholder: 'Your Answer',
