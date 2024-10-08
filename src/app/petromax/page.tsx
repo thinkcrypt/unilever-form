@@ -6,12 +6,11 @@ import {
 	FormContainer,
 	FormLogo,
 	OtpField,
-	RadioInput,
 	TextInput,
 } from '@/components';
 import { colors } from '@/lib/config/colors';
 import Breadcrumbs from '@/components/breadcrumb/BreadCrumb';
-import { checkboxText, formFields, genderField } from '@/lib/data';
+import { checkboxText, formFields } from '@/lib/data';
 import {
 	useGetotpMutation,
 	useSubmitFormMutation,
@@ -34,8 +33,8 @@ const Home = () => {
 	const [formData, setFormData] = useState({
 		name: '',
 		phone: '',
-		gender: '',
-		age: null,
+		age: '',
+		area: '',
 		checkbox: false,
 		otp: '',
 	});
@@ -67,7 +66,7 @@ const Home = () => {
 		setErrorMessage(null);
 		setFormErrorMessage(null);
 		trigger({ brand: 'petromax', phone: formData?.phone });
-		setTimeExpired(false);;
+		setTimeExpired(false);
 	};
 
 	// Get Code Button Logic
@@ -77,7 +76,6 @@ const Home = () => {
 		setErrorMessage(null);
 		setFormErrorMessage(null);
 		trigger({ brand: 'petromax', phone: formData?.phone });
-		// console.log('logged:', { brand: formData.brand, phone: formData.contact });
 	};
 
 	// form all data
@@ -90,8 +88,8 @@ const Home = () => {
 			formData: {
 				name: formData?.name,
 				phone: formData?.phone,
-				gender: formData?.gender,
 				age: formData?.age,
+				area: formData?.area,
 				otp: formData?.otp,
 			},
 		});
@@ -141,7 +139,6 @@ const Home = () => {
 	const isFormValid =
 		formData.name &&
 		formData.phone &&
-		formData.gender &&
 		formData.checkbox &&
 		formData.age !== null;
 
@@ -165,18 +162,9 @@ const Home = () => {
 							isRequired={true}
 							fieldKey={field.fieldKey}
 							borderTop={i === 0 ? `8px solid ${colors.petroColor}` : undefined}
-							disabled={formFieldDisabled}
+							disabled={field.fieldKey === 'phone' ? formFieldDisabled : false}
 						/>
 					))}
-					{/* Gender Field */}
-					<RadioInput
-						label='Gender'
-						isRequired={genderField.isRequired}
-						value={formData.gender}
-						errorMsg='Gender is required'
-						handleChange={(key, value) => handleInputChange('gender', value)}
-						disabled={formFieldDisabled}
-					/>
 
 					{/* Otp Field */}
 					{codeField && (

@@ -7,7 +7,7 @@ type TimerProps = {
 };
 
 const Timer: React.FC<TimerProps> = ({ onTimeExpired }) => {
-	const [seconds, setSeconds] = useState(180); // 3 minutes in seconds
+	const [seconds, setSeconds] = useState(300); // 3 minutes in seconds
 
 	useEffect(() => {
 		const interval = setInterval(() => {
