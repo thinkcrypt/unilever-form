@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import {
-	CheckboxField,
 	FormButton,
 	FormContainer,
 	FormLogo,
@@ -10,7 +9,7 @@ import {
 } from '@/components';
 import { colors } from '@/lib/config/colors';
 import Breadcrumbs from '@/components/breadcrumb/BreadCrumb';
-import { checkboxText, formFields } from '@/lib/data';
+import { formFields } from '@/lib/data';
 import {
 	useGetotpMutation,
 	useSubmitFormMutation,
