@@ -67,7 +67,7 @@ const Home = () => {
 		// currentUsingBrand: '',
 		// gender: '',
 		parlorCode: '',
-		PurchaseQuantity: '',
+		purchaseQuantity: '',
 		checkbox: false,
 		otp: '',
 	});
@@ -125,7 +125,7 @@ const Home = () => {
 				// currentUsingBrand: formData?.currentUsingBrand,
 				// gender: formData?.gender,
 				parlorCode: formData?.parlorCode,
-				PurchaseQuantity: formData?.PurchaseQuantity,
+				purchaseQuantity: formData?.purchaseQuantity,
 				otp: formData?.otp,
 			},
 		});
@@ -152,7 +152,7 @@ const Home = () => {
 		formData.phone &&
 		formData.checkbox &&
 		formData.age !== null &&
-		formData.PurchaseQuantity !== null &&
+		formData.purchaseQuantity !== null &&
 		formData.parlorCode;
 
 	return (

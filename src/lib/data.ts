@@ -116,7 +116,7 @@ export const tresemmeFormFields = [
 		placeholder: 'Type Quantity',
 		isRequired: true,
 		errorMsg: 'Purchase Quantity is required',
-		fieldKey: 'PurchaseQuantity', // This key must match a key in formData
+		fieldKey: 'purchaseQuantity', // This key must match a key in formData
 	},
 ];
 
