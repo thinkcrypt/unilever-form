@@ -1,5 +1,13 @@
 export const formFields = [
 	{
+		label: 'BP Code',
+		type: 'text',
+		placeholder: 'Enter BP Code',
+		isRequired: true,
+		errorMsg: 'BP Code is required',
+		fieldKey: 'bpCode', // This key must match a key in formData
+	},
+	{
 		label: 'Please Enter your name',
 		type: 'text',
 		placeholder: 'Your Answer',
@@ -24,6 +32,12 @@ export const formFields = [
 		fieldKey: 'age', // This key must match a key in formData
 	},
 	{
+		label: 'Current Using Brand',
+		type: 'string',
+		placeholder: 'Brand Name',
+		fieldKey: 'currentUsingBrand', // This key must match a key in formData
+	},
+	{
 		label: 'Area',
 		type: 'text',
 		placeholder: 'Your Answer',
@@ -31,8 +45,24 @@ export const formFields = [
 		errorMsg: 'Area is required',
 		fieldKey: 'area', // This key must match a key in formData
 	},
+	{
+		label: 'Address',
+		type: 'text',
+		placeholder: 'Your Address',
+		isRequired: true,
+		errorMsg: 'Address is required',
+		fieldKey: 'address', // This key must match a key in formData
+	},
+	{
+		label: 'Tentative Purchase Date',
+		type: 'date',
+		placeholder: 'Your Purchase Date',
+		isRequired: true,
+		errorMsg: 'Purchase Date is required',
+		fieldKey: 'tentativePurchaseDate', // This key must match a key in formData
+	},
 ];
-
+//`
 export const genderField = {
 	label: 'Gender',
 	isRequired: true,
@@ -65,12 +95,12 @@ export const tresemmeFormFields = [
 		errorMsg: 'Age is required',
 		fieldKey: 'age', // This key must match a key in formData
 	},
-	{
-		label: 'Current Using Brand',
-		type: 'string',
-		placeholder: 'Brand Name',
-		fieldKey: 'currentUsingBrand', // This key must match a key in formData
-	},
+	// {
+	// 	label: 'Current Using Brand',
+	// 	type: 'string',
+	// 	placeholder: 'Brand Name',
+	// 	fieldKey: 'currentUsingBrand', // This key must match a key in formData
+	// },
 
 	{
 		label: 'Parlor Code',
@@ -79,6 +109,14 @@ export const tresemmeFormFields = [
 		isRequired: true,
 		errorMsg: 'Area is required',
 		fieldKey: 'parlorCode', // This key must match a key in formData
+	},
+	{
+		label: 'Purchase Quantity',
+		type: 'number',
+		placeholder: 'Type Quantity',
+		isRequired: true,
+		errorMsg: 'Purchase Quantity is required',
+		fieldKey: 'PurchaseQuantity', // This key must match a key in formData
 	},
 ];
 

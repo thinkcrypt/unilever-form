@@ -31,11 +31,14 @@ const Home = () => {
 	const router = useRouter();
 
 	const [formData, setFormData] = useState({
+		bpCode: '',
 		name: '',
 		phone: '',
 		age: '',
+		currentUsingBrand: '',
 		area: '',
-		checkbox: false,
+		address: '',
+		tentativePurchaseDate: '',
 		otp: '',
 	});
 
@@ -86,10 +89,14 @@ const Home = () => {
 		submitFormTrigger({
 			brand: 'petromax',
 			formData: {
+				bpCode: formData?.bpCode,
 				name: formData?.name,
 				phone: formData?.phone,
 				age: formData?.age,
+				currentUsingBrand: formData?.currentUsingBrand,
 				area: formData?.area,
+				address: formData?.address,
+				tentativePurchaseDate: formData?.tentativePurchaseDate,
 				otp: formData?.otp,
 			},
 		});
@@ -137,9 +144,13 @@ const Home = () => {
 	}, [formResult?.isSuccess, formResult?.isLoading, router]);
 
 	const isFormValid =
+		formData.bpCode &&
 		formData.name &&
 		formData.phone &&
-		formData.checkbox &&
+		formData.currentUsingBrand &&
+		formData.area &&
+		formData.address &&
+		formData.tentativePurchaseDate &&
 		formData.age !== null;
 
 	return (
@@ -182,18 +193,6 @@ const Home = () => {
 							handleResend={handleResend}
 						/>
 					)}
-
-					{/* Checkbox Field */}
-					<CheckboxField
-						handleChange={() =>
-							handleInputChange('checkbox', !formData.checkbox)
-						}
-						isChecked={formData.checkbox}
-						isRequired={true}
-						disabled={formFieldDisabled}
-					>
-						{checkboxText?.petromax}
-					</CheckboxField>
 
 					{/* Error Messages Handling Before Getting Code */}
 					{!codeField && (
