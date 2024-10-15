@@ -6,13 +6,12 @@ import {
 	FormContainer,
 	FormLogo,
 	OtpField,
-	RadioInput,
 	TextInput,
 } from '@/components';
 import { colors } from '@/lib/config/colors';
 import BreadCrumb from '@/components/breadcrumb/BreadCrumb';
 
-import { checkboxText, genderField, tresemmeFormFields } from '@/lib/data';
+import { checkboxText, tresemmeFormFields } from '@/lib/data';
 import {
 	useGetotpMutation,
 	useSubmitFormMutation,
@@ -65,9 +64,10 @@ const Home = () => {
 		name: '',
 		phone: '',
 		age: null,
-		currentUsingBrand: '',
-		gender: '',
+		// currentUsingBrand: '',
+		// gender: '',
 		parlorCode: '',
+		PurchaseQuantity: '',
 		checkbox: false,
 		otp: '',
 	});
@@ -122,9 +122,10 @@ const Home = () => {
 				name: formData?.name,
 				phone: formData?.phone,
 				age: formData?.age,
-				currentUsingBrand: formData?.currentUsingBrand,
-				gender: formData?.gender,
+				// currentUsingBrand: formData?.currentUsingBrand,
+				// gender: formData?.gender,
 				parlorCode: formData?.parlorCode,
+				PurchaseQuantity: formData?.PurchaseQuantity,
 				otp: formData?.otp,
 			},
 		});
@@ -150,8 +151,8 @@ const Home = () => {
 		formData.name &&
 		formData.phone &&
 		formData.checkbox &&
-		formData.gender &&
 		formData.age !== null &&
+		formData.PurchaseQuantity !== null &&
 		formData.parlorCode;
 
 	return (
@@ -177,16 +178,6 @@ const Home = () => {
 							disabled={field.fieldKey === 'phone' ? formFieldDisabled : false}
 						/>
 					))}
-
-					{/* Gender Field */}
-					<RadioInput
-						label='Gender'
-						isRequired={genderField.isRequired}
-						value={formData.gender}
-						errorMsg='Gender is required'
-						handleChange={(key, value) => handleInputChange('gender', value)}
-						
-					/>
 					{codeField && (
 						<OtpField
 							value={formData.otp}
