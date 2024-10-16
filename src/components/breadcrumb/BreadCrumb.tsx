@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { colors } from '@/lib/config/colors';
 const BreadCrumb = () => {
 	const endpoint = usePathname();
-	console.log('endpoint:', endpoint.slice());
+	// console.log('endpoint:', endpoint.slice());
 	return (
 		<Box px='24px' mb='16px' maxW='620px' mx='auto'>
 			<Breadcrumb

@@ -90,24 +90,18 @@ export const tresemmeFormFields = [
 	{
 		label: 'Age',
 		type: 'number',
-		placeholder: 'Your Answer',
+		placeholder: 'Your Age',
 		isRequired: true,
 		errorMsg: 'Age is required',
 		fieldKey: 'age', // This key must match a key in formData
 	},
-	// {
-	// 	label: 'Current Using Brand',
-	// 	type: 'string',
-	// 	placeholder: 'Brand Name',
-	// 	fieldKey: 'currentUsingBrand', // This key must match a key in formData
-	// },
 
 	{
 		label: 'Parlor Code',
 		type: 'text',
-		placeholder: 'Your Answer',
+		placeholder: 'Parlor Code',
 		isRequired: true,
-		errorMsg: 'Area is required',
+		errorMsg: 'Parlor Code is required',
 		fieldKey: 'parlorCode', // This key must match a key in formData
 	},
 	{

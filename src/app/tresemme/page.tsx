@@ -89,6 +89,7 @@ const Home = () => {
 			...prev,
 			[key]: value,
 		}));
+		// console.log('single field:', { [key]: value });
 	};
 
 	const handleTimeExpired = () => {
@@ -115,15 +116,12 @@ const Home = () => {
 	const handleSubmitAllData = () => {
 		setErrorMessage(null);
 		setFormErrorMessage(null);
-
 		submitFormTrigger({
 			brand: 'tresemme',
 			formData: {
 				name: formData?.name,
 				phone: formData?.phone,
 				age: formData?.age,
-				// currentUsingBrand: formData?.currentUsingBrand,
-				// gender: formData?.gender,
 				parlorCode: formData?.parlorCode,
 				purchaseQuantity: formData?.purchaseQuantity,
 				otp: formData?.otp,
@@ -146,6 +144,7 @@ const Home = () => {
 			setCodeField(true);
 		}
 	}, [result?.isSuccess, result?.isLoading]);
+
 
 	const isFormValid =
 		formData.name &&
